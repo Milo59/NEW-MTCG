@@ -1,0 +1,17 @@
+@startuml
+class Request {
+- method: String
+- path: String
+- content: String
+- contentType: String
+- contentLength: Integer
+- authentication: String
+}
+
+class Response {
+- statusCode: Integer
+- message: String
+- contentType: String
+- content: String
+}
+@enduml
