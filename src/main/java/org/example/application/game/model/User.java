@@ -7,10 +7,10 @@ public class User {
 
     private String password;
 
-    public User() { //构造函数1
+    public User() { //Constructor1
     }
 
-    public User(String username, String password) { //构造函数2
+    public User(String username, String password) { //Constructor2
         this.username = username;
         this.password = password;
     }

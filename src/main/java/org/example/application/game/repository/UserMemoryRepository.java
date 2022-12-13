@@ -6,21 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserMemoryRepository implements UserRepository {
-    // House --> User 以下为示例代码
+
     private final List<User> users;
 
     public UserMemoryRepository() {
         this.users = new ArrayList<>();
-        this.users.add(new User());
-        this.users.add(new User());
-        this.users.add(new User());
-    }
-
-
-    @Override
-    public User save(User user) {
-        this.users.add(user);
-        return user;
     }
 
     @Override
@@ -29,8 +19,30 @@ public class UserMemoryRepository implements UserRepository {
     }
 
     @Override
+    public User findByUsername(String username) {
+        for (User user: this.users) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public User save(User user) {
+        if (!this.users.contains(user)) {
+            this.users.add(user);
+        }
+
+        return user;
+    }
+
+    @Override
     public User delete(User user) {
-        this.users.remove(user);
+        if (this.users.contains(user)) {
+            this.users.remove(user);
+        }
+
         return user;
     }
 }

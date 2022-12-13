@@ -29,6 +29,10 @@ public class RequestBuilder {
         request.setContentLength(HttpRegex.findHeaderAsInt(requestString, "Content-Length"));
 
         // TODO: Add additional information to the request
+        //request.setContent(getContent(requestString));
+        if (request.getMethod().equals("POST") || request.getMethod().equals("PUT")){ //如果方法是post或是put 那么增加用户？
+            request.setContent(getContext(requestString));
+        }
 
         return request;
     }
@@ -52,4 +56,12 @@ public class RequestBuilder {
 
         return path;
     }
+
+    // TODO : getContent...
+    private static String getContext(String requestString) throws UnsupportedProtocolException{ //
+        String CRLF = "\r\n"; //引号内是什么意思？
+        String content = requestString.substring(requestString.lastIndexOf(CRLF)).trim();
+        return content;
+        }
+
 }

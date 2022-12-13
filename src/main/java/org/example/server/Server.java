@@ -27,7 +27,7 @@ public class Server {
         server = new ServerSocket(PORT, 5);
         System.out.println("Server running at: http://localhost:" + PORT);
 
-        run();
+        run(); // call run() method
     }
 
     /**
@@ -35,10 +35,13 @@ public class Server {
      */
     private void run() {
         ExecutorService executorService = Executors.newFixedThreadPool(5);
+        //这里用到了线程池，可以了解一下。线程池里的线程会去执行
+        //RequestHandler
+        //这个类的run方法。
         while (true) {
             try {
                 Socket socket = server.accept();
-                executorService.submit(new RequestHandler(socket, application));
+                executorService.submit(new RequestHandler(socket, application));//execute run method in RequestHandler
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

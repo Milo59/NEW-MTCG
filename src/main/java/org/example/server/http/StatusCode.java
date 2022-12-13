@@ -3,7 +3,10 @@ package org.example.server.http;
 public enum StatusCode {
     OK(200, "OK"),
     NOT_FOUND(404, "Not Found"),
-    METHODE_NOT_ALLOWED(405, "Method Not Allowed")
+    CREATED(201, "Created"),
+
+    INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
+    METHODE_NOT_ALLOWED(405, "Method Not Allowed"),
     ;
 
     StatusCode(int code, String message) {

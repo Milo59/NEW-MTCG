@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Server server = new Server(new DemoApp());
         try {
-            server.start();
+            server.start(); // enter
         } catch (IOException e) {
             e.printStackTrace();
         }
