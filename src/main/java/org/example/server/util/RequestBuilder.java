@@ -29,8 +29,17 @@ public class RequestBuilder {
         request.setContentLength(HttpRegex.findHeaderAsInt(requestString, "Content-Length"));
 
         // TODO: Add additional information to the request
+        if (request.getMethod().equals("POST") || request.getMethod().equals("PUT")){
+            request.setContent(getContext(requestString));
+        }
 
         return request;
+    }
+
+    private static String getContext(String requestString) throws UnsupportedProtocolException {
+        String CRLF = "\r\n";
+        String content = requestString.substring(requestString.lastIndexOf(CRLF)).trim();
+        return content;
     }
 
     private static String getMethod(String requestString) throws UnsupportedProtocolException {
