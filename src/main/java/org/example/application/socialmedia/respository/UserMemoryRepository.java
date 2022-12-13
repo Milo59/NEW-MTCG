@@ -1,8 +1,7 @@
-package org.example.application.game.repository;
+package org.example.application.socialmedia.respository;
 
-import org.example.application.game.model.User;
+import org.example.application.socialmedia.model.User;
 
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,14 +30,9 @@ public class UserMemoryRepository implements UserRepository {
 
     @Override
     public User save(User user) {
-       /* try (Statement stmt2 = conn.createStatement()) {
-            stmt2.execute(
-                    """
-                        INSERT INTO users(username, password)
-                        VALUES('marvin', 'password');
-                        """
-            );
-        }*/
+        if (!this.users.contains(user)) {
+            this.users.add(user);
+        }
 
         return user;
     }

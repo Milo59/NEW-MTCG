@@ -1,5 +1,7 @@
-package org.example.application.game.model;
+package org.example.application.socialmedia.model;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 @JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
 public class User {
 
@@ -7,12 +9,10 @@ public class User {
 
     private String password;
 
-   // private
-
-    public User() { //Constructor1
+    public User() {
     }
 
-    public User(String username, String password) { //Constructor2
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }

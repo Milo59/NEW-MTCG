@@ -29,6 +29,17 @@ public class HttpRegex {
         return m.group(1);
     }
 
+    public static String findContent(String request) {
+        Pattern r = Pattern.compile("^.+[\\r\\n|\\r|\\n]{2}(.*)", Pattern.MULTILINE | Pattern.DOTALL);
+        Matcher m = r.matcher(request);
+
+        if (!m.find()) {
+            return null;
+        }
+
+        return m.group(1);
+    }
+
     /**
      * Finds the value of an HTTP header in an HTTP request string.
      * Returns the value as a string. If not found returns null;
