@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 
 public class Server {
 
-    public final int PORT = 10002;
+    public final int PORT = 10001;
     private ServerSocket server;
 
     private final Application application;

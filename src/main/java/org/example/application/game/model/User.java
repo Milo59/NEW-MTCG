@@ -7,7 +7,7 @@ public class User {
 
     private String password;
 
-   // private
+    private int coins = 20;
 
     public User() { //Constructor1
     }
