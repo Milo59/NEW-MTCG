@@ -11,6 +11,16 @@ public class Request {
 
     private String request;
 
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public String getMethod() {
         return method;
     }

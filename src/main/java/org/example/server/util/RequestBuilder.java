@@ -31,6 +31,8 @@ public class RequestBuilder {
         // Content
         request.setContent(HttpRegex.findContent(requestString));
 
+        request.setToken(getToken(requestString));
+
         // TODO: Add additional information to the request
         //request.setContent(getContent(requestString));
      /*   if (request.getMethod().equals("POST") || request.getMethod().equals("PUT")){ //如果方法是post或是put 那么增加用户？
@@ -38,6 +40,17 @@ public class RequestBuilder {
         }*/
 
         return request;
+    }
+
+    private static String getToken(String requestString) {
+        String token = HttpRegex.findHeaderAsString(requestString, "Authorization");
+        if (null != token) {
+            String[] s = token.split(" ");
+            if (s.length > 1) {
+                token = s[1];
+            }
+        }
+        return token;
     }
 
     private static String getMethod(String requestString) throws UnsupportedProtocolException {

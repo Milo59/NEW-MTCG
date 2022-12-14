@@ -1,5 +1,6 @@
 package org.example.server;
 
+import org.example.application.sessions.SessionApp;
 import org.example.application.user.UserApp;
 import org.example.server.dto.Request;
 import org.example.server.dto.Response;
@@ -31,19 +32,19 @@ public class RequestHandler implements Runnable {
         try {
             Request request = getRequest();
             Response response = null;
+            String path = request.getPath();
             //判断路径
-            if (request.getPath().equals("/users")) {
+            if (path.equals("/users")) {
                 //Handler 检测到users路径 调用UserApp类的handle方法处理
                 UserApp userApp = new UserApp();
                 response = userApp.handle(request);
-            }else{
-                // TODO: 其他模块 例如sessions
+            }else if(path.equals("/sessions")){
+                response = new SessionApp().handle(request);
+            }else {
                 response = application.handle(request);
             }
             sendResponse(response);
-        } catch (IOException ignored) {
-            ignored.printStackTrace();
-        } catch (UnsupportedProtocolException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             closeRequest();

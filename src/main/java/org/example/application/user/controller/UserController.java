@@ -65,14 +65,10 @@ public class UserController {
                 response.setContentType(ContentType.APPLICATION_JSON);
                 String content = "";
                 Map map = new HashMap();
+                map.put("status",200);
                 map.put("msg","created successfully");
-                map.put("userInfo",user);
-                try {
-                    content = objectMapper.writeValueAsString(map);
-                } catch (JsonProcessingException e) {
-                    e.printStackTrace();
-                    throw new RuntimeException(e);
-                }
+                map.put("user",user);
+                content = objectMapper.writeValueAsString(map);
                 response.setContent(content);
             }else{
                 response.setStatusCode(StatusCode.OK);
