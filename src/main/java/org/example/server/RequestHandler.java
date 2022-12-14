@@ -1,6 +1,6 @@
 package org.example.server;
 
-import org.example.application.game.UserApp;
+import org.example.application.user.UserApp;
 import org.example.server.dto.Request;
 import org.example.server.dto.Response;
 import org.example.server.exception.UnsupportedProtocolException;
@@ -30,17 +30,19 @@ public class RequestHandler implements Runnable {
     public void run() { //jump to here from server
         try {
             Request request = getRequest();
+            Response response = null;
             //判断路径
-            if (request.getPath().equals("/users")) {  //Handler 检测到users路径 调用UserApp类的handle方法处理
+            if (request.getPath().equals("/users")) {
+                //Handler 检测到users路径 调用UserApp类的handle方法处理
                 UserApp userApp = new UserApp();
-                Response response = userApp.handle(request);
-                sendResponse(response);
-                // return userApp.handle(request);
+                response = userApp.handle(request);
+            }else{
+                // TODO: 其他模块 例如sessions
+                response = application.handle(request);
             }
-            // TODO: 其他模块 例如sessions
-
-            //Response response = application.handle(request);
+            sendResponse(response);
         } catch (IOException ignored) {
+            ignored.printStackTrace();
         } catch (UnsupportedProtocolException e) {
             e.printStackTrace();
         } finally {
