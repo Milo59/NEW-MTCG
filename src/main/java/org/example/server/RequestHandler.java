@@ -1,5 +1,7 @@
 package org.example.server;
 
+import org.example.application.GameApp;
+import org.example.application.packages.PackageApp;
 import org.example.application.sessions.SessionApp;
 import org.example.application.user.UserApp;
 import org.example.server.dto.Request;
@@ -34,13 +36,19 @@ public class RequestHandler implements Runnable {
             Response response = null;
             String path = request.getPath();
             //判断路径
-            if (path.equals("/users")) {
+            if(path.equals("/")){
+                // default Handler
+                response = new GameApp().indexHandle(request);
+            }else if (path.equals("/users")) {
                 //Handler 检测到users路径 调用UserApp类的handle方法处理
                 UserApp userApp = new UserApp();
                 response = userApp.handle(request);
             }else if(path.equals("/sessions")){
                 response = new SessionApp().handle(request);
+            }else if(path.equals("/packages")){
+                response = new PackageApp().handle(request);
             }else {
+                // unrecognized request
                 response = application.handle(request);
             }
             sendResponse(response);

@@ -15,4 +15,16 @@ public class MemorySession {
     public static User remove(String authorization){
         return map.remove(authorization);
     }
+
+    public static User get(String authorization){
+        return map.get(authorization);
+    }
+
+    /**
+     * number of people online
+     * @return
+     */
+    public static int online(){
+        return map.size();
+    }
 }
