@@ -1,5 +1,6 @@
 package org.example.server;
 
+import org.example.application.packages.PackageApp;
 import org.example.application.sessions.SessionApp;
 import org.example.application.user.UserApp;
 import org.example.server.dto.Request;
@@ -38,9 +39,12 @@ public class RequestHandler implements Runnable {
                 //Handler 检测到users路径 调用UserApp类的handle方法处理
                 UserApp userApp = new UserApp();
                 response = userApp.handle(request);
-            }else if(path.equals("/sessions")){
-                response = new SessionApp().handle(request);
-            }else {
+            }else if(path.equals("/sessions")){ // user login. when the road /sessions is detected
+                response = new SessionApp().handle(request);}
+             //else if(path.equals("/packages")){
+                 //response = new PackageApp().handle(request);
+            //}
+            else {
                 response = application.handle(request);
             }
             sendResponse(response);

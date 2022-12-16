@@ -8,7 +8,7 @@ import org.example.application.user.repository.UserRepository;
 import org.example.server.Application;
 import org.example.server.dto.Request;
 import org.example.server.dto.Response;
-
+//User Login
 public class SessionApp implements Application {
     private SessionController sessionController;
 

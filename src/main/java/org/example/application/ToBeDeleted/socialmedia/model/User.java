@@ -1,4 +1,4 @@
-package org.example.application.socialmedia.model;
+package org.example.application.ToBeDeleted.socialmedia.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

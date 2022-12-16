@@ -1,4 +1,4 @@
-package org.example.application.housing.model;
+package org.example.application.ToBeDeleted.housing.model;
 
 public class House {
 

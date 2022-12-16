@@ -1,7 +1,7 @@
-package org.example.application.housing;
+package org.example.application.ToBeDeleted.housing;
 
-import org.example.application.housing.controller.HouseController;
-import org.example.application.housing.Repository.HouseMemoryRepository;
+import org.example.application.ToBeDeleted.housing.Repository.HouseMemoryRepository;
+import org.example.application.ToBeDeleted.housing.controller.HouseController;
 import org.example.server.Application;
 import org.example.server.dto.Request;
 import org.example.server.dto.Response;

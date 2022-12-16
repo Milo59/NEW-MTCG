@@ -44,7 +44,7 @@ public class UserController {
     }
 
 
-    private Response create(Request request) {
+    private Response create(Request request) { //request getContent获取检测脚本的参数 封装到user对象里
         ObjectMapper objectMapper = new ObjectMapper();
 
         String json = request.getContent();
@@ -60,7 +60,7 @@ public class UserController {
 
         Response response = new Response();
         try {
-            if (userRepository.save(user)){
+            if (userRepository.save(user)){ //根据传的参数调用方法
                 response.setStatusCode(StatusCode.CREATED);
                 response.setContentType(ContentType.APPLICATION_JSON);
                 String content = "";

@@ -1,7 +1,7 @@
-package org.example.application.housing.controller;
+package org.example.application.ToBeDeleted.housing.controller;
 
-import org.example.application.housing.Repository.HouseRepository;
-import org.example.application.housing.model.House;
+import org.example.application.ToBeDeleted.housing.Repository.HouseRepository;
+import org.example.application.ToBeDeleted.housing.model.House;
 import org.example.server.dto.Request;
 import org.example.server.dto.Response;
 import org.example.server.http.ContentType;

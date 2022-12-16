@@ -1,4 +1,4 @@
-package org.example.application.waiting;
+package org.example.application.ToBeDeleted.waiting;
 
 import org.example.server.Application;
 import org.example.server.dto.Request;

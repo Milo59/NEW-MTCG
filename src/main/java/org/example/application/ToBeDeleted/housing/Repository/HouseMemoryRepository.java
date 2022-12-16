@@ -1,6 +1,6 @@
-package org.example.application.housing.Repository;
+package org.example.application.ToBeDeleted.housing.Repository;
 
-import org.example.application.housing.model.House;
+import org.example.application.ToBeDeleted.housing.model.House;
 
 import java.util.ArrayList;
 import java.util.List;

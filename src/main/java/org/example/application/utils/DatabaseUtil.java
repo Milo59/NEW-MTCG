@@ -2,7 +2,7 @@ package org.example.application.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
+//拿到数据库连接
 public class DatabaseUtil {
 
     private static String DB_URL = "jdbc:postgresql://lmusoft.top:5432/swe1db";
