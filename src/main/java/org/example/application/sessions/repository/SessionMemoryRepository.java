@@ -14,13 +14,13 @@ public class SessionMemoryRepository implements SessionRepository{
         Connection connection = DatabaseUtil.getConnection();
 
         //verify whether the user already exists
-        String userFindByUsernameSql = "SELECT COUNT(USERNAME) NUMBER FROM USERS WHERE USERNAME = ? AND PASSWORD = ?";
+        String userFindByUsernameSql = "SELECT COUNT(USERNAME) NUMBER FROM USERS WHERE USERNAME = ? AND PASSWORD = ?";// SELECT COUNT 统计
         try (PreparedStatement ps = connection.prepareStatement(userFindByUsernameSql)) {
-            ps.setString(1, user.getUsername());
+            ps.setString(1, user.getUsername());// getUsername import from User class
             ps.setString(2, user.getPassword());
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
-                if (rs.getInt("number") >= 1) {
+                if (rs.getInt("number") >= 1) { //already exist--can login
                     return true;
                 }
             }

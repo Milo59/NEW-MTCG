@@ -72,7 +72,7 @@ public class UserDbRepository implements UserRepository {
             ps.setString(1, user.getUsername()); //根据传入的数据 设置参数 传到 ？（70）
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
-                if (rs.getInt("number") >= 1) { //already
+                if (rs.getInt("number") >= 1) { //already exist--cannot sign up again
                     return false;
                 }
             }

@@ -60,7 +60,7 @@ public class UserController {
 
         Response response = new Response();
         try {
-            if (userRepository.save(user)){ //根据传的参数调用方法
+            if (userRepository.save(user)){ //根据传的参数调用方法 往下走 如果返回值为TRUE
                 response.setStatusCode(StatusCode.CREATED);
                 response.setContentType(ContentType.APPLICATION_JSON);
                 String content = "";
@@ -69,7 +69,7 @@ public class UserController {
                 map.put("user",user);
                 content = objectMapper.writeValueAsString(map);
                 response.setContent(content);
-            }else{
+            }else{ //FALSE
                 response.setStatusCode(StatusCode.OK);
                 response.setContentType(ContentType.APPLICATION_JSON);
                 response.setContent("username already exists");

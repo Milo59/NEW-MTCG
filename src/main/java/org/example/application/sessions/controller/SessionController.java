@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SessionController {
-    private final SessionRepository sessionRepository;
+    private final SessionRepository sessionRepository;// final 一旦你将引用声明作final，你将不能改变这个引用了
     private final UserRepository userRepository;
 
     public SessionController(SessionRepository sessionRepository, UserRepository userRepository) {
@@ -60,7 +60,7 @@ public class SessionController {
         }
 
         try {
-            if (sessionRepository.login(user)) {
+            if (sessionRepository.login(user)) { //from SessionMemoryRepository return TRUE
                 String content = "";
                 Map map = new HashMap();
                 map.put("msg", "login succeeded");
@@ -68,14 +68,14 @@ public class SessionController {
                 map.put("authorization", authorization);
                 MemorySession.put(authorization, userRepository.findByUsername(user.getUsername()));
 
-                //print current online population
+                //print current number of people online
                 System.out.println(user.getUsername() + " login succeeded");
                 System.out.println("number of people online: " + MemorySession.online());
 
 
                 content = objectMapper.writeValueAsString(map);
                 response.setContent(content);
-            } else {
+            } else {  //
                 System.out.println(user.getUsername() + " login failed,username or password error");
                 response.setContent("username or password error");
             }
