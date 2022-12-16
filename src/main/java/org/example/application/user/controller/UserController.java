@@ -65,7 +65,6 @@ public class UserController {
                 response.setContentType(ContentType.APPLICATION_JSON);
                 String content = "";
                 Map map = new HashMap();
-                map.put("status",200);
                 map.put("msg","created successfully");
                 map.put("user",user);
                 content = objectMapper.writeValueAsString(map);

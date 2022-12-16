@@ -1,6 +1,5 @@
 package org.example.application.sessions.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.application.sessions.model.MemorySession;
 import org.example.application.sessions.repository.SessionRepository;
@@ -11,17 +10,15 @@ import org.example.server.dto.Response;
 import org.example.server.http.ContentType;
 import org.example.server.http.Method;
 import org.example.server.http.StatusCode;
-import org.postgresql.util.MD5Digest;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class SessionController {
     private final SessionRepository sessionRepository;
     private final UserRepository userRepository;
 
-    public SessionController(SessionRepository sessionRepository,UserRepository userRepository) {
+    public SessionController(SessionRepository sessionRepository, UserRepository userRepository) {
         this.userRepository = userRepository;
         this.sessionRepository = sessionRepository;
     }
@@ -29,10 +26,10 @@ public class SessionController {
     public Response handle(Request request) {
         String method = request.getMethod();
         String path = request.getPath();
-        if (method.equals(Method.POST.method)){
-            if (path.equals("/sessions")){
+        if (method.equals(Method.POST.method)) {
+            if (path.equals("/sessions")) {
                 return login(request);
-            }else if (path.equals("/sessions/logout")){
+            } else if (path.equals("/sessions/logout")) {
                 return logout(request);
             }
         }
@@ -63,17 +60,23 @@ public class SessionController {
         }
 
         try {
-            if (sessionRepository.login(user)){
+            if (sessionRepository.login(user)) {
                 String content = "";
                 Map map = new HashMap();
-                map.put("status",200);
-                map.put("msg","login succeeded");
-                String authorization = UUID.randomUUID().toString();
+                map.put("msg", "login succeeded");
+                String authorization = user.getUsername() + "-mtcgToken";
                 map.put("authorization", authorization);
-                MemorySession.put(authorization,userRepository.findByUsername(user.getUsername()));
+                MemorySession.put(authorization, userRepository.findByUsername(user.getUsername()));
+
+                //print current online population
+                System.out.println(user.getUsername() + " login succeeded");
+                System.out.println("number of people online: " + MemorySession.online());
+
+
                 content = objectMapper.writeValueAsString(map);
                 response.setContent(content);
-            }else{
+            } else {
+                System.out.println(user.getUsername() + " login failed,username or password error");
                 response.setContent("username or password error");
             }
         } catch (Exception e) {
