@@ -2,10 +2,19 @@ package org.example.application.user.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 @JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
 public class User {
+    private Long id;
 
     private String username;
 
     private String password;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public int getMoney() {
         return money;
