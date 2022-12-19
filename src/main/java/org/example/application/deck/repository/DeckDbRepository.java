@@ -1,6 +1,5 @@
 package org.example.application.deck.repository;
 
-import org.apache.commons.lang3.StringUtils;
 import org.example.application.user.model.User;
 import org.example.application.utils.DatabaseUtil;
 
