@@ -51,6 +51,7 @@ public class UserDbRepository implements UserRepository {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     user = new User();
+                    user.setId(rs.getLong("id"));
                     user.setUsername(rs.getString("username"));
                     user.setPassword(rs.getString("password"));
                     user.setMoney(rs.getInt("money"));

@@ -1,6 +1,7 @@
 package org.example.server;
 
 import org.example.application.GameApp;
+import org.example.application.deck.DeckApp;
 import org.example.application.packages.PackageApp;
 import org.example.application.sessions.SessionApp;
 import org.example.application.user.UserApp;
@@ -47,6 +48,8 @@ public class RequestHandler implements Runnable {
                 response = new SessionApp().handle(request);
             }else if(path.equals("/packages")){
                 response = new PackageApp().handle(request);
+            }else if(path.equals("/deck")){
+                response = new DeckApp().handle(request);
             }else {
                 // unrecognized request
                 response = application.handle(request);
