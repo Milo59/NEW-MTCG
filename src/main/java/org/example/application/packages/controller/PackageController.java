@@ -2,6 +2,7 @@ package org.example.application.packages.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.application.card.model.Card;
 import org.example.application.packages.model.Packages;
 import org.example.application.packages.repository.PackageRepository;
 import org.example.server.dto.Request;
@@ -37,13 +38,13 @@ public class PackageController {
     private Response create(Request request) {
         ObjectMapper objectMapper = new ObjectMapper();
         String json = request.getContent();
-        List<Packages> packageList;
+        List<Card> packageList;
 
         Response response = new Response();
         response.setStatusCode(StatusCode.OK);
         response.setContentType(ContentType.APPLICATION_JSON);
         try {
-            packageList = objectMapper.readValue(json, new TypeReference<List<Packages>>() {});
+            packageList = objectMapper.readValue(json, new TypeReference<List<Card>>() {});
 
             if (packageRepository.save(packageList)){
                 response.setStatusCode(StatusCode.CREATED);

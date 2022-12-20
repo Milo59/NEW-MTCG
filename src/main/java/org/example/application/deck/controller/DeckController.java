@@ -2,8 +2,9 @@ package org.example.application.deck.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import org.example.application.card.model.Card;
 import org.example.application.deck.repository.DeckRepository;
-import org.example.application.packages.model.Packages;
 import org.example.application.sessions.model.MemorySession;
 import org.example.application.user.model.User;
 import org.example.server.dto.Request;
@@ -31,7 +32,12 @@ public class DeckController {
         if (method.equals(Method.PUT.method)){
             return configureDeck(request);
         }
-        return null;
+        Response response = new Response();
+        response.setStatusCode(StatusCode.METHODE_NOT_ALLOWED);
+        response.setContentType(ContentType.TEXT_PLAIN);
+        response.setContent(request.getMethod() + ": Not allowed for " + request.getPath());
+
+        return response;
     }
 
     private Response findDeckCard(Request request){
@@ -42,8 +48,12 @@ public class DeckController {
         try {
             String token = request.getToken();
             User user = MemorySession.get(token);
-            List<String> cardList = deckRepository.findDeckCard(user);
+            if(request.getPath().endsWith("?format=plain")){
+                objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+            }
+            List<Card> cardList = deckRepository.findDeckCard(user);
             String content = "";
+
             content = objectMapper.writeValueAsString(cardList);
             response.setContent("This is "+user.getUsername()+"'s card on the deck "+content);
         } catch (Exception e) {
@@ -65,7 +75,7 @@ public class DeckController {
             User user = MemorySession.get(token);
             cardList = objectMapper.readValue(json, new TypeReference<List<String>>() {});
 
-            List<String> deckCardList = deckRepository.findDeckCard(user);
+            List<Card> deckCardList = deckRepository.findDeckCard(user);
             if(deckCardList.size()>0){
                 String content = "";
                 Map map = new HashMap();

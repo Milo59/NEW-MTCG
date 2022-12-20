@@ -1,5 +1,6 @@
 package org.example.application.packages.repository;
 
+import org.example.application.card.model.Card;
 import org.example.application.packages.model.Packages;
 import org.example.application.utils.DatabaseUtil;
 
@@ -11,7 +12,7 @@ import java.util.UUID;
 public class PackageDbRepository implements PackageRepository {
 
     @Override
-    public boolean save(List<Packages> packagesList) throws Exception {
+    public boolean save(List<Card> packagesList) throws Exception {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -26,11 +27,11 @@ public class PackageDbRepository implements PackageRepository {
 
             String insertCardSql = "INSERT INTO CARD(ID, P_ID, NAME, DAMAGE) VALUES(?, ?, ?, ?)";
             ps = connection.prepareStatement(insertCardSql);
-            for (Packages packages : packagesList) {
-                ps.setString(1, packages.getId());
+            for (Card card : packagesList) {
+                ps.setString(1, card.getId());
                 ps.setString(2, packageId);
-                ps.setString(3, packages.getName());
-                ps.setFloat(4, packages.getDamage());
+                ps.setString(3, card.getName());
+                ps.setFloat(4, card.getDamage());
                 ps.execute();
             }
             connection.commit();

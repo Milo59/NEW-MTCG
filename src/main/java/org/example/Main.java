@@ -1,7 +1,6 @@
 package org.example;
 
 import org.example.application.GameApp;
-import org.example.application.utils.DatabaseUtil;
 import org.example.server.Server;
 
 import java.io.IOException;
@@ -14,8 +13,6 @@ public class Main {
             server.start(); // enter
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            DatabaseUtil.getConnection().close();
         }
     }
 }

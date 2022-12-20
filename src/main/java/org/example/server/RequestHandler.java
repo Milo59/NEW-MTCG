@@ -40,7 +40,7 @@ public class RequestHandler implements Runnable {
             if(path.equals("/")){
                 // default Handler
                 response = new GameApp().indexHandle(request);
-            }else if (path.equals("/users")) {
+            }else if (path.startsWith("/users")) {
                 //Handler 检测到users路径 调用UserApp类的handle方法处理
                 UserApp userApp = new UserApp();
                 response = userApp.handle(request);
@@ -48,7 +48,7 @@ public class RequestHandler implements Runnable {
                 response = new SessionApp().handle(request);
             }else if(path.equals("/packages")){
                 response = new PackageApp().handle(request);
-            }else if(path.equals("/deck")){
+            }else if(path.startsWith("/deck")){
                 response = new DeckApp().handle(request);
             }else {
                 // unrecognized request

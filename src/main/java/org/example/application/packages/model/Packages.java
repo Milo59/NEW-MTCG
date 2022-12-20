@@ -13,7 +13,16 @@ public class Packages {
 
     private String name;
 
-    private float damage;
+    private int price;
+
+    private int state;
+
+    public Packages(String id, String name, int price, int state) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.state = state;
+    }
 
     public String getId() {
         return id;
@@ -31,11 +40,19 @@ public class Packages {
         this.name = name;
     }
 
-    public float getDamage() {
-        return damage;
+    public int getPrice() {
+        return price;
     }
 
-    public void setDamage(float damage) {
-        this.damage = damage;
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }

@@ -15,6 +15,7 @@ public interface UserRepository {
 
     void delete(User user) throws Exception;
 
+    void update(User user) throws Exception;
 
 }
 

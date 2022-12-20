@@ -55,6 +55,9 @@ public class UserDbRepository implements UserRepository {
                     user.setUsername(rs.getString("username"));
                     user.setPassword(rs.getString("password"));
                     user.setMoney(rs.getInt("money"));
+                    user.setName(rs.getString("name"));
+                    user.setBio(rs.getString("bio"));
+                    user.setImage(rs.getString("image"));
                 }
             }
         } catch (Exception e) {
@@ -77,8 +80,7 @@ public class UserDbRepository implements UserRepository {
                     return false;
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw e;
         }
         String insertUserSql = "INSERT INTO USERS(USERNAME, PASSWORD,MONEY) VALUES(?, ?, ?)"; //
@@ -100,6 +102,21 @@ public class UserDbRepository implements UserRepository {
         String userDeleteByUsernameSql = "DELETE FROM USERS WHERE USERNAME = ?";
         try (PreparedStatement ps = connection.prepareStatement(userDeleteByUsernameSql)) {
             ps.setString(1, user.getUsername());
+            ps.execute();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    @Override
+    public void update(User user) throws Exception {
+        Connection connection = DatabaseUtil.getConnection();
+        String userDeleteByUsernameSql = "UPDATE USERS SET NAME = ? , BIO = ?, IMAGE = ? WHERE USERNAME = ?";
+        try (PreparedStatement ps = connection.prepareStatement(userDeleteByUsernameSql)) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getBio());
+            ps.setString(3, user.getImage());
+            ps.setString(4, user.getUsername());
             ps.execute();
         } catch (Exception e) {
             throw e;

@@ -1,8 +1,5 @@
 package org.example.application.deck.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-@JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
 public class Deck {
 
     private Long id;

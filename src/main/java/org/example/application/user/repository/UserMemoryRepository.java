@@ -41,4 +41,9 @@ public class UserMemoryRepository implements UserRepository{
             this.users.remove(user);
         }
     }
+
+    @Override
+    public void update(User user) throws Exception {
+
+    }
 }
