@@ -64,6 +64,7 @@ echo .
 read -p "Press any key to resume ..." null
 
 # --------------------------------------------------
+# 4.5 买包
 echo "4) acquire packages kienboec"
 curl -i -X POST http://localhost:10001/transactions/packages --header "Content-Type: application/json" --header "Authorization: Bearer kienboec-mtcgToken" -d ""
 echo .
@@ -120,6 +121,7 @@ read -p "Press any key to resume ..." null
 
 # --------------------------------------------------
 echo "8) show all acquired cards kienboec"
+# 查询用户有哪些卡片
 curl -i -X GET http://localhost:10001/cards --header "Authorization: Bearer kienboec-mtcgToken"
 echo "should fail (no token)"
 curl -i -X GET http://localhost:10001/cards 

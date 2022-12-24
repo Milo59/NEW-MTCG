@@ -2,6 +2,7 @@ package org.example.application.packages.repository;
 
 import org.example.application.card.model.Card;
 import org.example.application.packages.model.Packages;
+import org.example.application.sessions.model.MemorySession;
 import org.example.application.utils.DatabaseUtil;
 
 import java.sql.Connection;
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 public class PackageDbRepository implements PackageRepository {
 
+    //create new packages
     @Override
     public boolean save(List<Card> packagesList) throws Exception {
         Connection connection = null;
@@ -44,6 +46,9 @@ public class PackageDbRepository implements PackageRepository {
                 ps.close();
             }
         }
+
+
         return true;
     }
+
 }

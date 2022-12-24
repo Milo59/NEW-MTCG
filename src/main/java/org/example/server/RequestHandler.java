@@ -1,6 +1,7 @@
 package org.example.server;
 
 import org.example.application.GameApp;
+import org.example.application.card.CardApp;
 import org.example.application.deck.DeckApp;
 import org.example.application.packages.PackageApp;
 import org.example.application.sessions.SessionApp;
@@ -50,6 +51,8 @@ public class RequestHandler implements Runnable {
                 response = new PackageApp().handle(request);
             }else if(path.startsWith("/deck")){
                 response = new DeckApp().handle(request);
+            } else if(path.equals("/cards")){ //查询用户的卡 show all acquired cards of users
+                    response = new CardApp().handle(request);
             }else {
                 // unrecognized request
                 response = application.handle(request);

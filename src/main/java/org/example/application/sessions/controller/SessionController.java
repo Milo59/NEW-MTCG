@@ -29,7 +29,7 @@ public class SessionController {
         if (method.equals(Method.POST.method)) {
             if (path.equals("/sessions")) {
                 return login(request);
-            } else if (path.equals("/sessions/logout")) {
+            } else if (path.equals("/sessions/logout")) { //additional feature
                 return logout(request);
             }
         }

@@ -39,7 +39,7 @@ public class UserController {
             return update(request);
         }
 
-        // To do...get方法
+        // To do...get method
 
         Response response = new Response();
         response.setStatusCode(StatusCode.METHODE_NOT_ALLOWED);

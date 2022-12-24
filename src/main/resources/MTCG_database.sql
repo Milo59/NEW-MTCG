@@ -24,16 +24,16 @@ alter table users
 
 DROP TABLE IF EXISTS packages;
 CREATE TABLE packages(
-                         p-id VARCHAR(36) NOT NULL,
+                         id VARCHAR(36) NOT NULL,
                          name VARCHAR(36) NOT NULL,
                          damage numeric(24, 1) not null,
                          price INTEGER NOT NULL,
                          UPDATED_TIME TIMESTAMP NOT NULL,
-                         PRIMARY KEY (p-id)
+                         PRIMARY KEY (id)
 );
 
 COMMENT ON TABLE packages IS '';
-COMMENT ON COLUMN packages.p-id IS 'package id';
+COMMENT ON COLUMN packages.id IS 'package id';
 comment on column packages.damage is 'Damage';
 COMMENT ON COLUMN packages.name IS 'buyer';
 COMMENT ON COLUMN packages.price IS 'package price';
