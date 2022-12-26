@@ -1,5 +1,6 @@
 package org.example.application.user.repository;
 
+import org.example.application.stats.model.Stats;
 import org.example.application.user.model.User;
 
 import java.util.ArrayList;
@@ -45,5 +46,15 @@ public class UserMemoryRepository implements UserRepository{
     @Override
     public void update(User user) throws Exception {
 
+    }
+
+    @Override
+    public Stats rank(User user) throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<Stats> rank() throws Exception {
+        return null;
     }
 }

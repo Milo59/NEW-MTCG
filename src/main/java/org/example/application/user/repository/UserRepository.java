@@ -1,6 +1,7 @@
 package org.example.application.user.repository;
 
 
+import org.example.application.stats.model.Stats;
 import org.example.application.user.model.User;
 
 import java.util.List;
@@ -16,6 +17,10 @@ public interface UserRepository {
     void delete(User user) throws Exception;
 
     void update(User user) throws Exception;
+
+    Stats rank(User user) throws Exception;
+
+    List<Stats> rank() throws Exception;
 
 }
 

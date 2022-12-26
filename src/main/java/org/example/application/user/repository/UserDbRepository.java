@@ -1,5 +1,6 @@
 package org.example.application.user.repository;
 
+import org.example.application.stats.model.Stats;
 import org.example.application.user.model.User;
 import org.example.application.utils.DatabaseUtil;
 
@@ -121,5 +122,57 @@ public class UserDbRepository implements UserRepository {
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    @Override
+    public Stats rank(User user) throws Exception {
+        Connection connection = DatabaseUtil.getConnection();
+        String userFindByUsernameSql = "SELECT DENSE_RANK() OVER (ORDER BY SCORED DESC) AS RANK, * FROM USERS";
+        Stats stats = null;
+        try (PreparedStatement ps = connection.prepareStatement(userFindByUsernameSql)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    if (rs.getString("username").equals(user.getUsername())){
+                        stats = new Stats();
+                        stats.setUsername(rs.getString("username"));
+                        stats.setName(rs.getString("name"));
+                        stats.setBio(rs.getString("bio"));
+                        stats.setImage(rs.getString("image"));
+                        stats.setMoney(rs.getInt("money"));
+                        stats.setRank(rs.getInt("rank"));
+                        stats.setScored(rs.getInt("scored"));
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return stats;
+    }
+
+    @Override
+    public List<Stats> rank() throws Exception {
+        Connection connection = DatabaseUtil.getConnection();
+        String userFindByUsernameSql = "SELECT DENSE_RANK() OVER (ORDER BY SCORED DESC) AS RANK, * FROM USERS";
+        List<Stats> statsList = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement(userFindByUsernameSql)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Stats stats = new Stats();
+                    stats.setUsername(rs.getString("username"));
+                    stats.setName(rs.getString("name"));
+                    stats.setBio(rs.getString("bio"));
+                    stats.setImage(rs.getString("image"));
+                    stats.setMoney(rs.getInt("money"));
+                    stats.setRank(rs.getInt("rank"));
+                    stats.setScored(rs.getInt("scored"));
+                    statsList.add(stats);
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return statsList;
     }
 }
