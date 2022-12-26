@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.application.card.model.Card;
 import org.example.application.packages.model.Packages;
 import org.example.application.packages.repository.PackageRepository;
+import org.example.application.sessions.model.MemorySession;
 import org.example.server.dto.Request;
 import org.example.server.dto.Response;
 import org.example.server.http.ContentType;
@@ -45,6 +46,10 @@ public class PackageController {
         response.setContentType(ContentType.APPLICATION_JSON);
         try {
             packageList = objectMapper.readValue(json, new TypeReference<List<Card>>() {});
+
+            //4.5
+            MemorySession.get(request.getToken());
+
 
             if (packageRepository.save(packageList)){
                 response.setStatusCode(StatusCode.CREATED);

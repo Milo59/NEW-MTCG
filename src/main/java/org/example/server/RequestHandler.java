@@ -3,9 +3,7 @@ package org.example.server;
 import org.example.application.GameApp;
 import org.example.application.deck.DeckApp;
 import org.example.application.packages.PackageApp;
-import org.example.application.scoreboard.ScoreBoardApp;
 import org.example.application.sessions.SessionApp;
-import org.example.application.stats.StatsApp;
 import org.example.application.user.UserApp;
 import org.example.server.dto.Request;
 import org.example.server.dto.Response;
@@ -52,6 +50,8 @@ public class RequestHandler implements Runnable {
                 response = new PackageApp().handle(request);
             }else if(path.startsWith("/deck")){
                 response = new DeckApp().handle(request);
+            } else if(path.equals("/cards")){ //查询用户的卡 show all acquired cards of users
+                    response = new CardApp().handle(request);
             }else if(path.equals("/stats")){
                 response = new StatsApp().handle(request);
             }else if(path.equals("/score")){

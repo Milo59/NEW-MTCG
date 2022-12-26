@@ -98,7 +98,7 @@ public class UserDbRepository implements UserRepository {
     }
 
     @Override
-    public void delete(User user) throws Exception {
+    public void delete(User user) throws Exception { //additional feature
         Connection connection = DatabaseUtil.getConnection();
         String userDeleteByUsernameSql = "DELETE FROM USERS WHERE USERNAME = ?";
         try (PreparedStatement ps = connection.prepareStatement(userDeleteByUsernameSql)) {
@@ -110,7 +110,7 @@ public class UserDbRepository implements UserRepository {
     }
 
     @Override
-    public void update(User user) throws Exception {
+    public void update(User user) throws Exception { //edit user profile
         Connection connection = DatabaseUtil.getConnection();
         String userDeleteByUsernameSql = "UPDATE USERS SET NAME = ? , BIO = ?, IMAGE = ? WHERE USERNAME = ?";
         try (PreparedStatement ps = connection.prepareStatement(userDeleteByUsernameSql)) {

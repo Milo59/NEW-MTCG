@@ -69,7 +69,7 @@ public class DatabaseInit {
             }
         }
         System.out.println("findAll results:");
-        System.out.println(users);
+        System.out.println(users);//packge.getId
         System.out.println();
 
         // findByUsername example

@@ -21,7 +21,7 @@ public class MemorySession {
     }
 
     /**
-     * number of people online
+     * number of people online. Additional
      * @return
      */
     public static int online(){
