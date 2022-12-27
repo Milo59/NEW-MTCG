@@ -27,7 +27,7 @@ public class UserApp implements Application {
         if (path.replaceAll("/users","").length()>1){
             //token verification
             Response response = new Response();
-            response.setStatusCode(StatusCode.NOT_FOUND);
+            response.setStatusCode(StatusCode.OK);
             response.setContentType(ContentType.TEXT_PLAIN);
 
             String token = request.getToken();

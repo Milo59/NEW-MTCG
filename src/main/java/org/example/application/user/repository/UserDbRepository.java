@@ -175,4 +175,28 @@ public class UserDbRepository implements UserRepository {
         }
         return statsList;
     }
+
+    @Override
+    public void addScore(Long userid) throws Exception {
+        Connection connection = DatabaseUtil.getConnection();
+        String findUserDeckCardSql = "update users set scored = scored+3 where id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(findUserDeckCardSql)) {
+            ps.setLong(1, userid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    @Override
+    public void reduceScore(Long userid) throws Exception {
+        Connection connection = DatabaseUtil.getConnection();
+        String findUserDeckCardSql = "update users set scored = scored-5 where id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(findUserDeckCardSql)) {
+            ps.setLong(1, userid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

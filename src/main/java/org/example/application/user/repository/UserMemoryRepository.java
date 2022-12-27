@@ -58,4 +58,14 @@ public class UserMemoryRepository implements UserRepository{
     public List<Stats> rank() throws Exception {
         return null;
     }
+
+    @Override
+    public void addScore(Long userid) throws Exception {
+
+    }
+
+    @Override
+    public void reduceScore(Long userid) throws Exception {
+
+    }
 }

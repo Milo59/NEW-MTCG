@@ -25,7 +25,7 @@ public class StatsApp implements Application {
         String token = request.getToken();
         if (null == token || null == MemorySession.get(token)){
             Response response = new Response();
-            response.setStatusCode(StatusCode.NOT_FOUND);
+            response.setStatusCode(StatusCode.OK);
             response.setContentType(ContentType.TEXT_PLAIN);
             response.setContent("authentication failed");
             return response;

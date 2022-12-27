@@ -2,6 +2,8 @@ package org.example.application.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+
 //拿到数据库连接
 public class DatabaseUtil {
 
@@ -27,6 +29,15 @@ public class DatabaseUtil {
 
     // return connection
     public static Connection getConnection() {
+        try {
+            if (connection.isClosed()){
+                connection = DriverManager.getConnection(
+                        DB_URL, DB_USER, DB_PW
+                );
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
         return connection;
     }
 

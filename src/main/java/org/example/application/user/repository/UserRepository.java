@@ -22,5 +22,9 @@ public interface UserRepository {
 
     List<Stats> rank() throws Exception;
 
+    void addScore(Long userid)throws Exception;
+
+    void reduceScore(Long userid)throws Exception;
+
 }
 

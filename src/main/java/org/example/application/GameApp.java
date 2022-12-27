@@ -17,7 +17,7 @@ public class GameApp implements Application {
      */
     public Response indexHandle(Request request){ //default from RequestHandler. Other Situation
         Response response = new Response();
-        response.setStatusCode(StatusCode.NOT_FOUND);
+        response.setStatusCode(StatusCode.OK);
         response.setContentType(ContentType.TEXT_PLAIN);
         response.setContent(title);
         return response;

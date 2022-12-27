@@ -1,4 +1,4 @@
-package org.example.application.packages;
+package org.example.application.transactions;
 
 import org.example.application.packages.controller.PackageController;
 import org.example.application.packages.repository.PackageDbRepository;
@@ -12,11 +12,11 @@ import org.example.server.dto.Response;
 import org.example.server.http.ContentType;
 import org.example.server.http.StatusCode;
 
-public class PackageApp implements Application {
+public class TransactionsApp implements Application {
 
     private PackageController packageController;
 
-    public PackageApp() {
+    public TransactionsApp() {
         PackageRepository packageRepository = new PackageDbRepository();
         UserRepository userRepository = new UserDbRepository();
         this.packageController = new PackageController(packageRepository,userRepository);
@@ -26,7 +26,7 @@ public class PackageApp implements Application {
     public Response handle(Request request) {
         //token verification
         String token = request.getToken();
-        if (null == token || null == MemorySession.get(token) || !MemorySession.get(token).getUsername().equals("admin")){
+        if (null == token || null == MemorySession.get(token)){
             Response response = new Response();
             response.setStatusCode(StatusCode.OK);
             response.setContentType(ContentType.TEXT_PLAIN);
