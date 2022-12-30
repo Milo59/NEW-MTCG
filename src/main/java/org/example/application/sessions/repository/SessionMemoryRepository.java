@@ -2,6 +2,7 @@ package org.example.application.sessions.repository;
 
 import org.example.application.user.model.User;
 import org.example.application.utils.DatabaseUtil;
+import org.example.application.utils.SHA1Utils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ public class SessionMemoryRepository implements SessionRepository{
         String userFindByUsernameSql = "SELECT COUNT(USERNAME) NUMBER FROM USERS WHERE USERNAME = ? AND PASSWORD = ?";// SELECT COUNT 统计
         try (PreparedStatement ps = connection.prepareStatement(userFindByUsernameSql)) {
             ps.setString(1, user.getUsername());// getUsername import from User class
-            ps.setString(2, user.getPassword());
+            ps.setString(2, SHA1Utils.getSha1(user.getPassword()));
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
                 if (rs.getInt("number") >= 1) { //already exist--can login

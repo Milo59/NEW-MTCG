@@ -3,6 +3,7 @@ package org.example.application.user.repository;
 import org.example.application.stats.model.Stats;
 import org.example.application.user.model.User;
 import org.example.application.utils.DatabaseUtil;
+import org.example.application.utils.SHA1Utils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -87,7 +88,7 @@ public class UserDbRepository implements UserRepository {
         String insertUserSql = "INSERT INTO USERS(USERNAME, PASSWORD,MONEY) VALUES(?, ?, ?)"; //
         try (PreparedStatement ps = connection.prepareStatement(insertUserSql)) {
             ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword());
+            ps.setString(2, SHA1Utils.getSha1(user.getPassword()));
             ps.setInt(3, user.getMoney());
             ps.execute();
         } catch (Exception e) {

@@ -1,6 +1,7 @@
 package org.example.application.battles.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.application.battles.model.Log;
 import org.example.application.battles.repository.BattlesRepository;
 import org.example.application.card.model.Card;
 import org.example.application.deck.repository.DeckRepository;
@@ -79,19 +80,28 @@ public class BattlesController {
                         continue;
                     }else{
                         //记录回合日志TODO
-
+                        Log log = new Log();
+                        log.setUser1(user1.getUsername());
+                        log.setUser2(user2.getUsername());
+                        log.setUser1CardName(card1.getName());
+                        log.setUser1CardDamage(card1.getDamage());
+                        log.setUser2CardName(card2.getName());
+                        log.setUser2CardDamage(card2.getDamage());
                         //修改用户分数
                         if(deckCard1.contains(card)){
                             //user1本回合获胜
+                            log.setWinner(user1.getUsername());
                             userRepository.addScore(user1.getId());
                             userRepository.reduceScore(user2.getId());
                             deckCard2.remove(card2);
                         }else{
                             //user2本回合获胜
+                            log.setWinner(user2.getUsername());
                             userRepository.addScore(user2.getId());
                             userRepository.reduceScore(user1.getId());
                             deckCard1.remove(card1);
                         }
+                        battlesRepository.insert(log);
                     }
                 }
                 response.setContent("battle end");

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.application.user.model.User;
 import org.example.application.user.repository.UserRepository;
+import org.example.application.utils.SHA1Utils;
 import org.example.server.dto.Request;
 import org.example.server.dto.Response;
 import org.example.server.http.ContentType;
@@ -127,6 +128,7 @@ public class UserController {
                 Map map = new HashMap();
                 map.put("msg","created successfully");
                 map.put("user",user);
+                user.setPassword(SHA1Utils.getSha1(user.getPassword()));
                 content = objectMapper.writeValueAsString(map);
                 response.setContent(content);
             }else{ //FALSE
