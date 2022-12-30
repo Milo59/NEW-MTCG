@@ -85,7 +85,7 @@ public class UserDbRepository implements UserRepository {
         } catch (Exception e) {
             throw e;
         }
-        String insertUserSql = "INSERT INTO USERS(USERNAME, PASSWORD,MONEY) VALUES(?, ?, ?)"; //
+        String insertUserSql = "INSERT INTO USERS(USERNAME, PASSWORD,MONEY) VALUES(?, ?, ?)"; //创建user
         try (PreparedStatement ps = connection.prepareStatement(insertUserSql)) {
             ps.setString(1, user.getUsername());
             ps.setString(2, SHA1Utils.getSha1(user.getPassword()));
@@ -180,7 +180,7 @@ public class UserDbRepository implements UserRepository {
     @Override
     public void addScore(Long userid) throws Exception {
         Connection connection = DatabaseUtil.getConnection();
-        String findUserDeckCardSql = "update users set scored = scored+3 where id = ?";
+        String findUserDeckCardSql = "update users set scored = scored+3 where id = ?"; // +5 +3
         try (PreparedStatement ps = connection.prepareStatement(findUserDeckCardSql)) {
             ps.setLong(1, userid);
             ps.executeUpdate();

@@ -1,13 +1,17 @@
 package org.example.application.user.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.nio.charset.StandardCharsets;
+import com.google.common.hash.Hashing;
+
 @JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
 public class User {
     private Long id;
 
     private String username;
-
     private String password;
 
+    private String passwordHash;
     private String name;
     private String bio;
     private String image;
@@ -20,6 +24,7 @@ public class User {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.passwordHash = passwordHash;
         this.name = name;
         this.bio = bio;
         this.image = image;
@@ -36,6 +41,16 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getHashPassword(){ // Password encryption
+        return Hashing.sha256() // Hashing dependency added
+                .hashString(password, StandardCharsets.UTF_8)
+                .toString();
+        /*String passwordHash = Hashing.sha256() // Hashing dependency added
+                .hashString(password, StandardCharsets.UTF_8)
+                .toString();
+        return passwordHash;*/
     }
 
     public String getName() {

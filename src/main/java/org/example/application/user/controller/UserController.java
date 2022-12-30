@@ -28,15 +28,15 @@ public class UserController {
         String path = request.getPath();
 
         if (path.equals("/users") && method.equals(Method.POST.method)) {
-            //判断post请求方法 表示要创建用户
+            //Determine whether it is a POST request method, indicating that a user is to be created
             return create(request);
         }
 
-        if (path.startsWith("/users/") && request.getMethod().equals(Method.GET.method)) {
+        if (path.startsWith("/users/") && request.getMethod().equals(Method.GET.method)) { // Get method go this way
             return find(request);
         }
 
-        if (path.startsWith("/users/") && request.getMethod().equals(Method.PUT.method)) {
+        if (path.startsWith("/users/") && request.getMethod().equals(Method.PUT.method)) { // Post Method come here
             return update(request);
         }
 
@@ -128,7 +128,7 @@ public class UserController {
                 Map map = new HashMap();
                 map.put("msg","created successfully");
                 map.put("user",user);
-                user.setPassword(SHA1Utils.getSha1(user.getPassword()));
+                user.setPassword(user.getHashPassword()); //加密
                 content = objectMapper.writeValueAsString(map);
                 response.setContent(content);
             }else{ //FALSE
