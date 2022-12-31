@@ -9,5 +9,5 @@ public interface TradeRepository {
 
     List<Trade> findTradeByUserId (Long userid) throws Exception;
 
-    boolean save(List<Trade> tradeList) throws Exception ;
+    boolean save(Trade trade) throws Exception ;
 }

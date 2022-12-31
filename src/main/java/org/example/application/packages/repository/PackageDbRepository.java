@@ -12,6 +12,8 @@ import java.util.UUID;
 
 public class PackageDbRepository implements PackageRepository {
 
+    //private int i = 1;
+
     //create new packages
     @Override
     public boolean save(List<Card> packagesList) throws Exception {
@@ -20,7 +22,8 @@ public class PackageDbRepository implements PackageRepository {
         try {
             connection = DatabaseUtil.getConnection();
             connection.setAutoCommit(false);
-            String packageId = UUID.randomUUID().toString();
+            //String packageId = (i++) + "";
+            String packageId = UUID.randomUUID().toString(); // UUID --> unique id
             String insertPackageSql = "INSERT INTO PACKAGES(ID,NAME) VALUES(?,?)";
             ps = connection.prepareStatement(insertPackageSql);
             ps.setString(1, packageId);

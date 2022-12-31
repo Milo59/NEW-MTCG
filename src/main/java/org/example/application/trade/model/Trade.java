@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
 public class Trade {
 
-    private Long id;
+    private String id;
 
     private Long uId;
 
@@ -18,11 +18,11 @@ public class Trade {
     public Trade() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -59,7 +59,7 @@ public class Trade {
         this.minimumDamage = minimumDamage;
     }
 
-    public Trade(Long id, String cardToTrade, String type, int minimumDamage){
+    public Trade(String id, String cardToTrade, String type, int minimumDamage){
         this.id = id;
         this.cardToTrade = cardToTrade;
         this.type = type;
