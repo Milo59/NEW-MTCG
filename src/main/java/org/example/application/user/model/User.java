@@ -24,7 +24,7 @@ public class User {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.passwordHash = passwordHash;
+        //this.passwordHash = passwordHash;
         this.name = name;
         this.bio = bio;
         this.image = image;

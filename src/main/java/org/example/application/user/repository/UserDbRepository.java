@@ -88,7 +88,7 @@ public class UserDbRepository implements UserRepository {
         String insertUserSql = "INSERT INTO USERS(USERNAME, PASSWORD,MONEY) VALUES(?, ?, ?)"; //创建user
         try (PreparedStatement ps = connection.prepareStatement(insertUserSql)) {
             ps.setString(1, user.getUsername());
-            ps.setString(2, SHA1Utils.getSha1(user.getPassword()));
+            ps.setString(2, user.getHashPassword());
             ps.setInt(3, user.getMoney());
             ps.execute();
         } catch (Exception e) {

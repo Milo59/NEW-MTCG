@@ -128,7 +128,7 @@ public class UserController {
                 Map map = new HashMap();
                 map.put("msg","created successfully");
                 map.put("user",user);
-                user.setPassword(user.getHashPassword()); //加密
+                user.setPassword(user.getHashPassword()); //密码 加密
                 content = objectMapper.writeValueAsString(map);
                 response.setContent(content);
             }else{ //FALSE

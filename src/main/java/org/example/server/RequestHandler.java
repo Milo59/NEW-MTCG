@@ -8,6 +8,7 @@ import org.example.application.packages.PackageApp;
 import org.example.application.scoreboard.ScoreBoardApp;
 import org.example.application.sessions.SessionApp;
 import org.example.application.stats.StatsApp;
+import org.example.application.trade.TradeApp;
 import org.example.application.transactions.TransactionsApp;
 import org.example.application.user.UserApp;
 import org.example.server.dto.Request;
@@ -65,6 +66,8 @@ public class RequestHandler implements Runnable {
                 response = new ScoreBoardApp().handle(request);
             }else if(path.equals("/battles")){
                 response = new BattlesApp().handle(request);
+            }else if(path.startsWith("/tradings")){
+                response = new TradeApp().handle(request);
             }else {
                 // unrecognized request
                 response = application.handle(request);
