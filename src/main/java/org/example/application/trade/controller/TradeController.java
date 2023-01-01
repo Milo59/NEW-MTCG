@@ -23,7 +23,6 @@ public class TradeController {
 
 
     public TradeController(TradeRepository tradeRepository) {
-
         this.tradeRepository = tradeRepository;
     }
 
@@ -34,10 +33,19 @@ public class TradeController {
         if(method.equals(Method.GET.method ) && path.equals("/tradings")){
             return searchUserTrade(request);
         }
-        if (method.equals(Method.PUT.method ) && path.equals("/tradings/6cd85277-4590-49d4-b0cf-ba0a921faad0")){
+
+        if (method.equals(Method.POST.method ) && path.equals("/tradings")){
             return createTrade(request);
         }
+/*
+        if (method.equals(Method.DELETE.method ) && path.equals("/tradings/6cd85277-4590-49d4-b0cf-ba0a921faad0")){
+            return deleteTrade(request);
+        }
 
+        if (method.equals(Method.POST.method ) && path.equals("/tradings/6cd85277-4590-49d4-b0cf-ba0a921faad0")){
+            return tryToTrade(request);
+        }
+*/
         Response response = new Response();
         response.setStatusCode(StatusCode.METHODE_NOT_ALLOWED);
         response.setContentType(ContentType.TEXT_PLAIN);
@@ -45,6 +53,13 @@ public class TradeController {
 
         return response;
     }
+/*
+    private Response tryToTrade(Request request) {
+
+    }
+
+    private Response deleteTrade(Request request) {
+    }*/
 
     private Response searchUserTrade(Request request) { //根据用户搜索交易
         ObjectMapper objectMapper = new ObjectMapper();
@@ -60,7 +75,6 @@ public class TradeController {
 
             content = objectMapper.writeValueAsString(tradeList);
             response.setContent("Here is " + user.getUsername() + "'s trade(s): " + content);
-            //maybe加一个 if else setContent No Trade ？
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,22 +86,24 @@ public class TradeController {
     private Response createTrade(Request request) { //创建交易
         ObjectMapper objectMapper = new ObjectMapper();
         String json = request.getContent();
-        List<Trade> tradeList;
+        Trade trade; //define a trade object
 
         Response response = new Response();
         response.setStatusCode(StatusCode.OK);
         response.setContentType(ContentType.APPLICATION_JSON);
+
         try {
-            tradeList = objectMapper.readValue(json, new TypeReference<List<Trade>>() {});
+            trade = objectMapper.readValue(json, Trade.class); //JSON parameters are passed to the trade object
 
-            MemorySession.get(request.getToken());
+            User user = MemorySession.get(request.getToken());
+            trade.setuId(user.getId()); // get the user who build the trade from checkFile
 
-            if (tradeRepository.save(tradeList)){ // save --> create
+            if (tradeRepository.save(trade)){ // save --> TradeDbRepository
                 response.setStatusCode(StatusCode.CREATED); //1
                 String content = "";
                 Map map = new HashMap();
                 map.put("msg","created successfully");
-                map.put("trades",tradeList);
+                map.put("trades", trade);
                 content = objectMapper.writeValueAsString(map);
                 response.setContent(content);
             }else{
