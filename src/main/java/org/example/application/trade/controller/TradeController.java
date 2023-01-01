@@ -37,15 +37,15 @@ public class TradeController {
         if (method.equals(Method.POST.method ) && path.equals("/tradings")){
             return createTrade(request);
         }
-/*
+
         if (method.equals(Method.DELETE.method ) && path.equals("/tradings/6cd85277-4590-49d4-b0cf-ba0a921faad0")){
             return deleteTrade(request);
         }
 
-        if (method.equals(Method.POST.method ) && path.equals("/tradings/6cd85277-4590-49d4-b0cf-ba0a921faad0")){
+       /* if (method.equals(Method.POST.method ) && path.equals("/tradings/6cd85277-4590-49d4-b0cf-ba0a921faad0")){
             return tryToTrade(request);
-        }
-*/
+        }*/
+
         Response response = new Response();
         response.setStatusCode(StatusCode.METHODE_NOT_ALLOWED);
         response.setContentType(ContentType.TEXT_PLAIN);
@@ -53,13 +53,47 @@ public class TradeController {
 
         return response;
     }
-/*
-    private Response tryToTrade(Request request) {
-
-    }
 
     private Response deleteTrade(Request request) {
-    }*/
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = request.getContent();
+        Trade trade;
+
+        Response response = new Response();
+        response.setStatusCode(StatusCode.OK);
+        response.setContentType(ContentType.APPLICATION_JSON);
+
+        try {
+            trade = objectMapper.readValue(json, Trade.class);
+            User user = MemorySession.get(request.getToken());
+            trade.setuId(user.getId());
+
+            if (tradeRepository.delete(trade)) { // delete --> TradeDbRepository
+                String content = "";
+                Map map = new HashMap();
+                map.put("msg", "delete successfully");
+                map.put("trades", trade);
+
+                System.out.println(trade.getId() + " delete succeeded");
+
+                content = objectMapper.writeValueAsString(map);
+                response.setContent(content);
+            } else {
+                System.out.println(trade.getId() + " delete failed, id not exist");
+                response.setContent("id not exist");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setContent(e.getMessage());
+        }
+        return response;
+    }
+
+
+   /* private Response tryToTrade(Request request) {
+
+    }
+*/
 
     private Response searchUserTrade(Request request) { //根据用户搜索交易
         ObjectMapper objectMapper = new ObjectMapper();

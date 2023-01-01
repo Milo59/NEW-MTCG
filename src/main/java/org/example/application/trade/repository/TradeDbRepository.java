@@ -1,6 +1,5 @@
 package org.example.application.trade.repository;
 
-import org.example.application.card.model.Card;
 import org.example.application.trade.model.Trade;
 import org.example.application.utils.DatabaseUtil;
 
@@ -33,7 +32,6 @@ public class TradeDbRepository implements TradeRepository{
                     trades.add(trade);
                 }
             }
-
         }
         return trades;
     }
@@ -55,6 +53,26 @@ public class TradeDbRepository implements TradeRepository{
         }
 
         return true;
+    }
+
+    @Override
+    public boolean delete(Trade trade) throws Exception {
+        Connection conn = DatabaseUtil.getConnection();
+
+        //verify whether the trade already exists
+        String tradeFindByTradeIdSpl = "DELETE FROM TRADES WHERE ID = ?";
+        try (PreparedStatement ps = conn.prepareStatement(tradeFindByTradeIdSpl)) {
+            ps.setString(1, trade.getId());
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                if (rs.getInt("number") >= 1) { //already exist--can be deleted
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return false;
     }
 }
 
