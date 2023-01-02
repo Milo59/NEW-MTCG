@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.application.card.model.Card;
 import org.example.application.sessions.model.MemorySession;
 import org.example.application.trade.model.Trade;
+import org.example.application.trade.repository.TradeDbRepository;
 import org.example.application.trade.repository.TradeRepository;
 import org.example.application.user.model.User;
 import org.example.server.dto.Request;
@@ -57,22 +58,25 @@ public class TradeController {
     private Response deleteTrade(Request request) {
         ObjectMapper objectMapper = new ObjectMapper();
         String json = request.getContent();
-        Trade trade;
+        Trade trade;//defi null
 
         Response response = new Response();
         response.setStatusCode(StatusCode.OK);
         response.setContentType(ContentType.APPLICATION_JSON);
 
         try {
-            trade = objectMapper.readValue(json, Trade.class);
+            trade = new Trade(); //内存分配地址
+            trade.setId(request.getPath().replace("/tradings/", "")); //截取id
+           // trade = objectMapper.readValue(json, Trade.class);
             User user = MemorySession.get(request.getToken());
             trade.setuId(user.getId());
+
 
             if (tradeRepository.delete(trade)) { // delete --> TradeDbRepository
                 String content = "";
                 Map map = new HashMap();
                 map.put("msg", "delete successfully");
-                map.put("trades", trade);
+                map.put("trades", tradeRepository.searchTradeById(trade.getId()));
 
                 System.out.println(trade.getId() + " delete succeeded");
 

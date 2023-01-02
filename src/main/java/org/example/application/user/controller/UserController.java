@@ -50,6 +50,7 @@ public class UserController {
         return response;
     }
 
+    //edit user data
     private Response update(Request request) {
         ObjectMapper objectMapper = new ObjectMapper();
 

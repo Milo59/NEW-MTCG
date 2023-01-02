@@ -1,5 +1,6 @@
 package org.example.application.trade.repository;
 
+import org.example.DatabaseInit;
 import org.example.application.trade.model.Trade;
 import org.example.application.utils.DatabaseUtil;
 
@@ -37,6 +38,30 @@ public class TradeDbRepository implements TradeRepository{
     }
 
     @Override
+    public Trade searchTradeById(String id) throws Exception {
+        Connection connection = DatabaseUtil.getConnection();
+
+        String findByTradeIdSql = "SELECT * FROM trade WHERE id = ?";
+        Trade trade = null;
+        try(PreparedStatement ps = connection.prepareStatement(findByTradeIdSql)) {
+            ps.setString(1, id);
+            try(ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    trade = new Trade();
+                    trade.setId(rs.getString("id"));
+                    trade.setuId(rs.getLong("u_id"));
+                    trade.setCardToTrade(rs.getString("cardtotrade"));
+                    trade.setType(rs.getString("type"));
+                    trade.setMinimumDamage(rs.getInt("minimumdamage"));
+
+                }
+            }
+        }
+
+        return trade;
+    }
+
+    @Override
     public boolean save(Trade trade) throws Exception {  //保存交易信息  传trade参数
         Connection connection = DatabaseUtil.getConnection();
        // PreparedStatement ps = null;
@@ -63,16 +88,11 @@ public class TradeDbRepository implements TradeRepository{
         String tradeFindByTradeIdSpl = "DELETE FROM TRADES WHERE ID = ?";
         try (PreparedStatement ps = conn.prepareStatement(tradeFindByTradeIdSpl)) {
             ps.setString(1, trade.getId());
-            try (ResultSet rs = ps.executeQuery()) {
-                rs.next();
-                if (rs.getInt("number") >= 1) { //already exist--can be deleted
-                    return true;
-                }
-            }
+            ps.executeUpdate();
         } catch (Exception e) {
             throw e;
         }
-        return false;
+        return true;
     }
 }
 

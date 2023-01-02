@@ -9,6 +9,8 @@ public interface TradeRepository {
 
     List<Trade> findTradeByUserId (Long userid) throws Exception;
 
+    Trade searchTradeById(String id) throws Exception;
+
     boolean save(Trade trade) throws Exception ;
 
     boolean delete(Trade trade) throws Exception;

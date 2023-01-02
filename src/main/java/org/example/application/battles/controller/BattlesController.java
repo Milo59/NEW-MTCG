@@ -104,7 +104,7 @@ public class BattlesController {
                         battlesRepository.insert(log);
                     }
                 }
-                response.setContent("battle end");
+                response.setContent("battle end\n");
                 deckUser = new ArrayList<>();
             }
         } catch (Exception e) {
