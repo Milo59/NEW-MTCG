@@ -55,7 +55,7 @@ public class PackageController {
             User user = userRepository.findByUsername(memUser.getUsername());
             if (user.getMoney()>=5){
                 if (packageRepository.checkPackage()){
-                    List<Card> cards = packageRepository.acquirePackages(memUser.getId());
+                    List<Card> cards = packageRepository.acquirePackages(user.getId());
                     String content = objectMapper.writeValueAsString(cards);
                     response.setContent(content);
                 }else{

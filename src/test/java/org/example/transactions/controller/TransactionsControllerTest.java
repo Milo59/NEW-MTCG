@@ -1,35 +1,36 @@
-package org.example.card.controller;
+package org.example.transactions.controller;
 
-import org.example.application.card.CardApp;
 import org.example.application.sessions.model.MemorySession;
+import org.example.application.transactions.TransactionsApp;
 import org.example.application.user.model.User;
 import org.example.server.dto.Request;
 import org.example.server.dto.Response;
 import org.junit.jupiter.api.Test;
 
-public class CardControllerTest {
-    CardApp cardApp ;
+public class TransactionsControllerTest {
+    TransactionsApp transactionsApp ;
 
     void mockLogin(){
         User user = new User();
         user.setUsername("kienboec");
-        user.setId(44l);
         MemorySession.put("kienboec-mtcgToken",user);
     }
 
     @Test
-    void testGetUserCard() throws Exception {
+    void testAcquirePackages() throws Exception{
         //mock login
         mockLogin();
-        cardApp = new CardApp();
+
+        transactionsApp = new TransactionsApp();
 
         Request request = new Request();
-        request.setMethod("GET");
-        request.setPath("/cards");
+        request.setMethod("POST");
+        request.setPath("/transactions/packages");
+
         request.setToken("kienboec-mtcgToken");
 
         // Act
-        Response response = cardApp.handle(request);
+        Response response = transactionsApp.handle(request);
 
         //Print test output
         System.out.println(response.getStatus());
