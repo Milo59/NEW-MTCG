@@ -17,7 +17,7 @@ public class DeckControllerTest {
     void mockLogin() {
         User user = new User();
         user.setUsername("kienboec");
-        user.setId(44l);
+        user.setId(44l); //l --> Long
         MemorySession.put("kienboec-mtcgToken", user);
     }
 

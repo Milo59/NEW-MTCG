@@ -113,7 +113,7 @@ public class PackageDbRepository implements PackageRepository {
     }
 
     @Override
-    public boolean checkPackage() throws Exception {
+    public boolean checkPackage() throws Exception {  //检查包剩下数量是否大于1 能否被买
         Connection conn = DatabaseUtil.getConnection();
         String sql = "SELECT COUNT(1) AS NUM FROM PACKAGES WHERE STATE=1";
         try(PreparedStatement ps = conn.prepareStatement(sql)) {

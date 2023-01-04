@@ -1,6 +1,6 @@
 package org.example.application.trade.repository;
 
-import org.example.DatabaseInit;
+import org.example.application.card.model.Card;
 import org.example.application.trade.model.Trade;
 import org.example.application.utils.DatabaseUtil;
 
@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class TradeDbRepository implements TradeRepository{
 
@@ -60,6 +59,81 @@ public class TradeDbRepository implements TradeRepository{
 
         return trade;
     }
+
+    @Override
+    public Card findCardByCardId(String id) throws Exception {
+        Connection connection = DatabaseUtil.getConnection();
+
+        String findCardByCardIdSql = "SELECT * FROM CARD WHERE id = ?";
+        Card card = null;
+        try(PreparedStatement ps = connection.prepareStatement(findCardByCardIdSql)) {
+            ps.setString(1, id);
+            try(ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    card = new Card();
+                    card.setuId(rs.getLong("u_id"));
+                    ps.execute();
+                }
+            }
+        }
+        return card;
+    }
+
+    @Override
+    public Card findCardByUserId(Long userid) throws Exception {
+        Connection connection = DatabaseUtil.getConnection();
+
+        String findCardByUserIdSql = "SELECT * FROM CARD WHERE U_ID = ?";
+        Card card = null;
+        try(PreparedStatement ps = connection.prepareStatement(findCardByUserIdSql)) {
+            ps.setLong(1, userid);
+            try(ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    card = new Card();
+                    card.setuId(rs.getLong("u_id"));
+                    ps.execute();
+                }
+            }
+        }
+        return card;
+    }
+
+    @Override
+    public Card findCardIdByTradeId(String id) throws Exception {
+        Connection connection = DatabaseUtil.getConnection();
+
+        String findCardIdByTradeIdSql = "SELECT * FROM Trades WHERE ID = ?";
+        Card card = null;
+        try(PreparedStatement ps = connection.prepareStatement(findCardIdByTradeIdSql)) {
+            ps.setString(1, id);
+            try(ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    card = new Card();
+                    card.setId(rs.getString("id"));
+                    ps.execute();
+                }
+            }
+        }
+        return card;
+    }
+
+    @Override
+    public boolean updateUserIdByCardId(Long card, String id) throws Exception {
+        Connection connection = DatabaseUtil.getConnection();
+        String updateUserByCardIdSql = "update card set u_id = ? where id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(updateUserByCardIdSql)) {
+            ps.setLong(1, card);
+            ps.setString(2, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        }
+        return true;
+
+    }
+
+    //TODO updateStatusSql
 
     @Override
     public boolean save(Trade trade) throws Exception {  //保存交易信息  传trade参数

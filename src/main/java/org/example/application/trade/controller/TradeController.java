@@ -43,9 +43,9 @@ public class TradeController {
             return deleteTrade(request);
         }
 
-       /* if (method.equals(Method.POST.method ) && path.equals("/tradings/6cd85277-4590-49d4-b0cf-ba0a921faad0")){
+        if (method.equals(Method.POST.method ) && path.equals("/tradings/6cd85277-4590-49d4-b0cf-ba0a921faad0")){
             return tryToTrade(request);
-        }*/
+        }
 
         Response response = new Response();
         response.setStatusCode(StatusCode.METHODE_NOT_ALLOWED);
@@ -66,11 +66,10 @@ public class TradeController {
 
         try {
             trade = new Trade(); //内存分配地址
-            trade.setId(request.getPath().replace("/tradings/", "")); //截取id
+            trade.setId(request.getPath().replace("/tradings/", "")); //从路径截取id
            // trade = objectMapper.readValue(json, Trade.class);
             User user = MemorySession.get(request.getToken());
             trade.setuId(user.getId());
-
 
             if (tradeRepository.delete(trade)) { // delete --> TradeDbRepository
                 String content = "";
@@ -94,10 +93,68 @@ public class TradeController {
     }
 
 
-   /* private Response tryToTrade(Request request) {
+   private Response tryToTrade(Request request) {
+       //ObjectMapper objectMapper = new ObjectMapper();
+       String card_d_id = request.getContent().replace("\"", ""); // -d  card_d_id --> card2 id
+       Trade trade;
+
+       Response response = new Response();
+       response.setStatusCode(StatusCode.OK);
+       response.setContentType(ContentType.APPLICATION_JSON);
+
+       try {
+           trade = new Trade(); //内存分配地址
+           trade.setId(request.getPath().replace("/tradings/", "")); //从路径截取Trade id
+           String tradeId = trade.getId(); // trade id
+
+           User user = MemorySession.get(request.getToken());
+           //trade.setuId(user.getId());
+
+           Card card2 = tradeRepository.findCardByCardId(card_d_id); // card2 object
+           Long card2Uid = card2.getuId();
+
+           Card card1 = tradeRepository.findCardIdByTradeId(tradeId); // card1 id
+           Long card1Uid = user.getId();
+
+
+           //compare if uid is the same
+           if ( card2Uid.longValue() == card1Uid.longValue() ){ //longValue --> L --> l
+               //if same --> not allowed to trade with urself
+               response.setContent("Not allowed to trade with yourself!");
+           }else{ //else --not the same --> 交易
+               tradeRepository.updateUserIdByCardId(card2Uid, card1.getId());
+               tradeRepository.updateUserIdByCardId(card1Uid, card_d_id);
+
+               //TODO----
+
+               response.setContentType(ContentType.APPLICATION_JSON);
+               response.setContent("trade successfully!");
+           }
+       } catch (Exception e) {
+           e.printStackTrace();
+           response.setContent(e.getMessage());
+       }
+       return response;
+
+       //路径取trade id --> 交易记录
+       //检测脚本取-d传的参数  要交易的卡id
+       //get -d的uId  --》 SELECT * FROM CARD WHERE ID = ? 得到卡的记录--》+新增 findUserByCardId 方法实现
+       //compare uid if the same
+       //if same --> not allowed to trade with urself
+
+       //else --not the same --> 实现交易
+
+       //DB--> updateUserIdByCardId
+       //1。第二部的卡的uid更新为 第三部的卡的uid
+       //2.第三步的卡的uid更新为 第2部的卡的uid
+       // trade successfully
+       //
+       //更新交易状态
+       //update -- state = 0;
+
 
     }
-*/
+
 
     private Response searchUserTrade(Request request) { //根据用户搜索交易
         ObjectMapper objectMapper = new ObjectMapper();

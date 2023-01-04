@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Card {
     private String id;
 
+    private Long uId; // used for try to trade --> findCardByCardId
+
     private String name;
 
     private float damage;
@@ -19,6 +21,14 @@ public class Card {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Long getuId(){
+        return uId;
+    }
+
+    public void setuId(Long uId) {
+        this.uId = uId;
     }
 
     public String getName() {
