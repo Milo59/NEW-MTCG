@@ -52,6 +52,7 @@ public class TradeDbRepository implements TradeRepository{
                     trade.setCardToTrade(rs.getString("cardtotrade"));
                     trade.setType(rs.getString("type"));
                     trade.setMinimumDamage(rs.getInt("minimumdamage"));
+                    trade.setStatus(rs.getInt("status"));
 
                 }
             }
@@ -118,29 +119,48 @@ public class TradeDbRepository implements TradeRepository{
     }
 
     @Override
-    public boolean updateUserIdByCardId(Long card, String id) throws Exception {
+    public void updateUserIdByCardId(Long card_userid, String id) throws Exception {
         Connection connection = DatabaseUtil.getConnection();
         String updateUserByCardIdSql = "update card set u_id = ? where id = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(updateUserByCardIdSql)) {
-            ps.setLong(1, card);
+            ps.setLong(1, card_userid);
             ps.setString(2, id);
             ps.executeUpdate();
         } catch (Exception e) {
             throw e;
         }
-        return true;
-
     }
 
-    //TODO updateStatusSql
+    @Override
+    public Trade updateTradeStatus(String id) throws Exception { //--> searchTradeById
+        Connection connection = DatabaseUtil.getConnection();
+        String updateTradeStatusSql = "update trades set status = 1 where id = ?";
+
+        Trade trade = null;
+        try(PreparedStatement ps = connection.prepareStatement(updateTradeStatusSql)) {
+            ps.setString(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                trade = new Trade();
+                trade.setId(rs.getString("id"));
+                trade.setuId(rs.getLong("u_Id"));
+                trade.setCardToTrade(rs.getString("cardToTrade"));
+                trade.setType(rs.getString("type"));
+                trade.setMinimumDamage(rs.getInt("minimumdamage"));
+                trade.setStatus(rs.getInt("status"));
+            }
+        }
+        return trade;
+    }
+
 
     @Override
     public boolean save(Trade trade) throws Exception {  //保存交易信息  传trade参数
         Connection connection = DatabaseUtil.getConnection();
        // PreparedStatement ps = null;
 
-        String insertTradeSql = "INSERT INTO TRADES(ID, CARDTOTRADE, TYPE, MINIMUMDAMAGE, U_ID) VALUES(?, ?, ?, ?, ?)";
+        String insertTradeSql = "INSERT INTO TRADES(ID, CARDTOTRADE, TYPE, MINIMUMDAMAGE, U_ID, STATUS) VALUES(?, ?, ?, ?, ?, ?)";
 
         try(PreparedStatement ps = connection.prepareStatement(insertTradeSql)) {
             ps.setString(1, trade.getId());
@@ -148,9 +168,9 @@ public class TradeDbRepository implements TradeRepository{
             ps.setString(3, trade.getType());
             ps.setInt(4, trade.getMinimumDamage());
             ps.setLong(5, trade.getuId());
+            ps.setInt(6, trade.getStatus());
             ps.execute();
         }
-
         return true;
     }
 

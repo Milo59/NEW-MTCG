@@ -13,6 +13,8 @@ public class Trade {
 
     private String type;
 
+    private int status;
+
     private int minimumDamage;
 
     public Trade() {
@@ -49,6 +51,14 @@ public class Trade {
 
     public void setType(String type){
         this.type = type;
+    }
+
+    public int getStatus(){
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getMinimumDamage() {

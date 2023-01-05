@@ -17,8 +17,9 @@ public interface TradeRepository {
 
     Card findCardIdByTradeId (String id) throws Exception;
 
-    boolean updateUserIdByCardId(Long card, String id) throws Exception;
+    void updateUserIdByCardId(Long card_userid, String id) throws Exception; // try to trade
 
+    Trade updateTradeStatus(String id) throws Exception;
 
     boolean save(Trade trade) throws Exception ;
 
