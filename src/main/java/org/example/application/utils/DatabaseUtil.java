@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-//拿到数据库连接
-public class DatabaseUtil {
 
-    private static String DB_URL = "jdbc:postgresql://lmusoft.top:5432/swe1db";
+public class DatabaseUtil {
+    //get the connection to the database
+    private static String DB_URL = "jdbc:postgresql://localhost:5431/swe1db";
     private static String DB_USER = "swe1user";
     private static String DB_PW = "swe1pw";
 

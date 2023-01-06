@@ -1,4 +1,4 @@
-package org.example;
+package org.example.application.ToBeDeleted;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.List;
 
 public class DatabaseInit {
 
-    private static String DB_URL = "jdbc:postgresql://lmusoft.top:5432/swe1db";
+    private static String DB_URL = "jdbc:postgresql://localhost:5431/swe1db";
     private static String DB_USER = "swe1user";
     private static String DB_PW = "swe1pw";
 

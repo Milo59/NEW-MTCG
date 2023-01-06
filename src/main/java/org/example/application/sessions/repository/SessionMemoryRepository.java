@@ -2,7 +2,6 @@ package org.example.application.sessions.repository;
 
 import org.example.application.user.model.User;
 import org.example.application.utils.DatabaseUtil;
-import org.example.application.utils.SHA1Utils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

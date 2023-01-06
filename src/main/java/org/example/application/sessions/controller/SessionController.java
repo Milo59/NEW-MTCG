@@ -72,7 +72,6 @@ public class SessionController {
                 System.out.println(user.getUsername() + " login succeeded");
                 System.out.println("number of people online: " + MemorySession.online());
 
-
                 content = objectMapper.writeValueAsString(map);
                 response.setContent(content);
             } else {  //

@@ -3,7 +3,6 @@ package org.example.application.user.repository;
 import org.example.application.stats.model.Stats;
 import org.example.application.user.model.User;
 import org.example.application.utils.DatabaseUtil;
-import org.example.application.utils.SHA1Utils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

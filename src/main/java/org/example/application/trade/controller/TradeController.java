@@ -140,23 +140,6 @@ public class TradeController {
 
        return response;
    }
-
-
-
-/*
- try {
-           User user = MemorySession.get(request.getToken());//user变量 获取用户信息
-           tradeList = tradeRepository.findTradeByUserId(user.getId()); //把该用户扥所有交易放入名为 tradeList 的交易集合？
-           String content = "";
-
-           content = objectMapper.writeValueAsString(tradeList);
-           response.setContent("Here is " + user.getUsername() + "'s trade(s): " + content);
-       } catch (Exception e) {
-           e.printStackTrace();
-           response.setContent(e.getMessage());
-       }*/
-
-
        //路径取trade id --> 交易记录
        //检测脚本取-d传的参数  要交易的卡id
        //get -d的uId  --》 SELECT * FROM CARD WHERE ID = ? 得到卡的记录--》+新增 findUserByCardId 方法实现
@@ -171,10 +154,7 @@ public class TradeController {
        // trade successfully
        //
        //更新交易状态
-       //update -- state = 0;
-
-
-
+       //update -- state = 1;
 
     private Response searchUserTrade(Request request) { //根据用户搜索交易
         ObjectMapper objectMapper = new ObjectMapper();
