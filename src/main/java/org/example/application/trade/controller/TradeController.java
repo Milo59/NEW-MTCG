@@ -131,8 +131,6 @@ public class TradeController {
                response.setContentType(ContentType.APPLICATION_JSON);
                response.setContent("trade successfully!");
 
-
-
            }
        } catch (Exception e) {
            e.printStackTrace();

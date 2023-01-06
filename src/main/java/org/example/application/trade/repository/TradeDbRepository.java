@@ -28,6 +28,7 @@ public class TradeDbRepository implements TradeRepository{
                     trade.setCardToTrade(rs.getString("cardToTrade"));
                     trade.setType(rs.getString("type"));
                     trade.setMinimumDamage(rs.getInt("minimumdamage"));
+                    trade.setStatus(rs.getInt("status"));
 
                     trades.add(trade);
                 }
@@ -141,18 +142,9 @@ public class TradeDbRepository implements TradeRepository{
         Trade trade = null;
         try(PreparedStatement ps = connection.prepareStatement(updateTradeStatusSql)) {
             ps.setString(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                rs.next();
-                trade = new Trade();
-                trade.setId(rs.getString("id"));
-                trade.setuId(rs.getLong("u_Id"));
-                trade.setCardToTrade(rs.getString("cardToTrade"));
-                trade.setType(rs.getString("type"));
-                trade.setMinimumDamage(rs.getInt("minimumdamage"));
-                trade.setStatus(rs.getInt("status"));
-            }
+            ps.executeUpdate();
         }
-        return trade;
+        return null;
     }
 
 
