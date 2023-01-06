@@ -2,7 +2,7 @@ package org.example.application.card.repository;
 
 
 import org.example.application.card.model.Card;
-import org.example.application.utils.DatabaseUtil;
+import org.example.DatabaseUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

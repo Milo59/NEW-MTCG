@@ -1,8 +1,8 @@
 package org.example.application.housing.controller;
 
-import org.example.application.ToBeDeleted.housing.Repository.HouseRepository;
-import org.example.application.ToBeDeleted.housing.controller.HouseController;
-import org.example.application.ToBeDeleted.housing.model.House;
+import org.example.ReferenceDocuments.housing.Repository.HouseRepository;
+import org.example.ReferenceDocuments.housing.controller.HouseController;
+import org.example.ReferenceDocuments.housing.model.House;
 import org.example.server.dto.Request;
 import org.example.server.dto.Response;
 import org.example.server.http.StatusCode;

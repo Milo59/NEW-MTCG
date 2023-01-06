@@ -1,6 +1,6 @@
-package org.example.application.ToBeDeleted.housing.Repository;
+package org.example.ReferenceDocuments.housing.Repository;
 
-import org.example.application.ToBeDeleted.housing.model.House;
+import org.example.ReferenceDocuments.housing.model.House;
 
 import java.util.List;
 

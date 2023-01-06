@@ -1,6 +1,6 @@
-package org.example.application.ToBeDeleted.socialmedia.respository;
+package org.example.ReferenceDocuments.socialmedia.respository;
 
-import org.example.application.ToBeDeleted.socialmedia.model.User;
+import org.example.ReferenceDocuments.socialmedia.model.User;
 
 import java.util.ArrayList;
 import java.util.List;

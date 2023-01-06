@@ -1,8 +1,8 @@
-package org.example.application.ToBeDeleted.socialmedia;
+package org.example.ReferenceDocuments.socialmedia;
 
-import org.example.application.ToBeDeleted.socialmedia.respository.UserRepository;
-import org.example.application.ToBeDeleted.socialmedia.controller.UserController;
-import org.example.application.ToBeDeleted.socialmedia.respository.UserMemoryRepository;
+import org.example.ReferenceDocuments.socialmedia.respository.UserRepository;
+import org.example.ReferenceDocuments.socialmedia.controller.UserController;
+import org.example.ReferenceDocuments.socialmedia.respository.UserMemoryRepository;
 import org.example.server.Application;
 import org.example.server.dto.Request;
 import org.example.server.dto.Response;

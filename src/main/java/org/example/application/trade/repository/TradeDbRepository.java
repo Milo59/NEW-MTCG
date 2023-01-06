@@ -2,7 +2,7 @@ package org.example.application.trade.repository;
 
 import org.example.application.card.model.Card;
 import org.example.application.trade.model.Trade;
-import org.example.application.utils.DatabaseUtil;
+import org.example.DatabaseUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
