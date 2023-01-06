@@ -94,8 +94,7 @@ public class TradeController {
 
 
    private Response tryToTrade(Request request) {
-       ObjectMapper objectMapper = new ObjectMapper();
-       List<Trade> tradeList;
+
        String card2Id = request.getContent().replace("\"", ""); // -d
        Trade trade;
 
@@ -116,9 +115,10 @@ public class TradeController {
            Long card2Uid = card2.getuId();
 
            Card card1 = tradeRepository.findCardIdByTradeId(tradeId); // card1 --> object.  for to get id
-           Long card1Uid = user.getId();
+           Long card1Uid = card1.getuId();
 
            //compare if uid is the same
+
            if (card2Uid.longValue() == card1Uid.longValue()) { //longValue --> L --> l
                //if same --> not allowed to trade with the same person
                response.setContent("Not allowed to trade with yourself!");
@@ -126,30 +126,39 @@ public class TradeController {
                tradeRepository.updateUserIdByCardId(card2Uid, card1.getId());
                tradeRepository.updateUserIdByCardId(card1Uid, card2Id);
 
+               tradeRepository.updateTradeStatus(tradeId);
+
                response.setContentType(ContentType.APPLICATION_JSON);
                response.setContent("trade successfully!");
+
+
+
            }
        } catch (Exception e) {
            e.printStackTrace();
            response.setContent(e.getMessage());
        }
+
+
        return response;
    }
 
 
-      /* try {
-                   User user = MemorySession.get(request.getToken());//user变量 获取用户信息
-                   tradeList = tradeRepository.findTradeByUserId(user.getId()); //把该用户扥所有交易放入名为 tradeList 的交易集合？
-                   String content = "";
 
-                   content = objectMapper.writeValueAsString(tradeList);
-                   response.setContent("Here is " + user.getUsername() + "'s trade(s): " + content);
-               } catch (Exception e) {
-                   e.printStackTrace();
-                   response.setContent(e.getMessage());
-               }
-       return response;
+/*
+ try {
+           User user = MemorySession.get(request.getToken());//user变量 获取用户信息
+           tradeList = tradeRepository.findTradeByUserId(user.getId()); //把该用户扥所有交易放入名为 tradeList 的交易集合？
+           String content = "";
+
+           content = objectMapper.writeValueAsString(tradeList);
+           response.setContent("Here is " + user.getUsername() + "'s trade(s): " + content);
+       } catch (Exception e) {
+           e.printStackTrace();
+           response.setContent(e.getMessage());
        }*/
+
+
        //路径取trade id --> 交易记录
        //检测脚本取-d传的参数  要交易的卡id
        //get -d的uId  --》 SELECT * FROM CARD WHERE ID = ? 得到卡的记录--》+新增 findUserByCardId 方法实现

@@ -40,7 +40,7 @@ public class TradeDbRepository implements TradeRepository{
     public Trade searchTradeById(String id) throws Exception {
         Connection connection = DatabaseUtil.getConnection();
 
-        String findByTradeIdSql = "SELECT * FROM trade WHERE id = ?";
+        String findByTradeIdSql = "SELECT * FROM trades WHERE id = ?";
         Trade trade = null;
         try(PreparedStatement ps = connection.prepareStatement(findByTradeIdSql)) {
             ps.setString(1, id);
@@ -110,7 +110,8 @@ public class TradeDbRepository implements TradeRepository{
             try(ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     card = new Card();
-                    card.setId(rs.getString("id"));
+                    card.setId(rs.getString("cardtotrade"));
+                    card.setuId(rs.getLong("u_id"));
                     ps.execute();
                 }
             }
@@ -135,7 +136,7 @@ public class TradeDbRepository implements TradeRepository{
     @Override
     public Trade updateTradeStatus(String id) throws Exception { //--> searchTradeById
         Connection connection = DatabaseUtil.getConnection();
-        String updateTradeStatusSql = "update trades set status = 1 where id = ?";
+        String updateTradeStatusSql = "update trades set status = 1 where id = ?"; // altrady trade
 
         Trade trade = null;
         try(PreparedStatement ps = connection.prepareStatement(updateTradeStatusSql)) {
