@@ -73,8 +73,11 @@ public class TradeDbRepository implements TradeRepository{
             try(ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     card = new Card();
+                    card.setId(rs.getString("id"));
                     card.setuId(rs.getLong("u_id"));
-                    ps.execute();
+                    card.setName(rs.getString("name"));
+                    card.setDamage(rs.getFloat("damage"));
+                  //  ps.execute();
                 }
             }
         }
@@ -92,7 +95,10 @@ public class TradeDbRepository implements TradeRepository{
             try(ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     card = new Card();
+                    card.setId(rs.getString("id"));
                     card.setuId(rs.getLong("u_id"));
+                    card.setName(rs.getString("name"));
+                    card.setDamage(rs.getFloat("damage"));
                     ps.execute();
                 }
             }
@@ -135,16 +141,14 @@ public class TradeDbRepository implements TradeRepository{
     }
 
     @Override
-    public Trade updateTradeStatus(String id) throws Exception { //--> searchTradeById
+    public void updateTradeStatus(String id) throws Exception { //--> searchTradeById
         Connection connection = DatabaseUtil.getConnection();
-        String updateTradeStatusSql = "update trades set status = 1 where id = ?"; // altrady trade
+        String updateTradeStatusSql = "update trades set status = 1 where id = ?"; // already trade
 
-        Trade trade = null;
         try(PreparedStatement ps = connection.prepareStatement(updateTradeStatusSql)) {
             ps.setString(1, id);
             ps.executeUpdate();
         }
-        return null;
     }
 
 
@@ -182,40 +186,3 @@ public class TradeDbRepository implements TradeRepository{
         return true;
     }
 }
-
-// String tradeId = UUID.randomUUID().toString(); //why use uuid 不能就把p id or T id按顺序1234这样排吗？
-           /* String insertTradeSql = "INSERT INTO TRADES(ID,CARDTOTRADE,TYPE,MINIMUMDAMAGE) VALUES(?,?,?,?)";
-            ps = connection.prepareStatement(insertTradeSql);
-            ps.setString(1, tradeId);
-            ps.setString(2, tradeId);
-            ps.execute();*/
-
-          /*  String preparedSql = "INSERT INTO users(username, password) VALUES(?, ?)";
-
-            try(PreparedStatement ps = conn.prepareStatement(preparedSql)) {
-                ps.setString(1, username);
-                ps.setString(2, password);
-                ps.execute();
-            }*/
-
-            // ps = connection.prepareStatement(findTradeByUserIdSql);
-          /*  try(PreparedStatement ps = connection.prepareStatement(insertTradeSql)){
-                ps.setString(1, trade.getId());
-                ps.setString(2, trade.getCardToTrade());
-                ps.setString(3, trade.getType());
-                ps.setFloat(4, trade.getMinimumDamage());
-
-                ps.execute();
-
-            connection.commit();
-        } catch (Exception e) {
-            connection.rollback();
-            throw e;
-        } finally {
-            connection.setAutoCommit(true);
-            if (null != ps) {
-                ps.close();
-            }
-        }
-        */
-

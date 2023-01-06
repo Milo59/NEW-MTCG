@@ -19,7 +19,7 @@ public interface TradeRepository {
 
     void updateUserIdByCardId(Long card_userid, String id) throws Exception; // try to trade
 
-    Trade updateTradeStatus(String id) throws Exception;
+    void updateTradeStatus(String id) throws Exception;
 
     boolean save(Trade trade) throws Exception ;
 

@@ -110,15 +110,12 @@ public class TradeController {
            User user = MemorySession.get(request.getToken());
            //trade.setuId(user.getId());
 
-
            Card card2 = tradeRepository.findCardByCardId(card2Id); // card2 --> object
            Long card2Uid = card2.getuId();
-
            Card card1 = tradeRepository.findCardIdByTradeId(tradeId); // card1 --> object.  for to get id
            Long card1Uid = card1.getuId();
 
            //compare if uid is the same
-
            if (card2Uid.longValue() == card1Uid.longValue()) { //longValue --> L --> l
                //if same --> not allowed to trade with the same person
                response.setContent("Not allowed to trade with yourself!");
@@ -136,8 +133,6 @@ public class TradeController {
            e.printStackTrace();
            response.setContent(e.getMessage());
        }
-
-
        return response;
    }
        //路径取trade id --> 交易记录

@@ -17,8 +17,15 @@ public class TradeControllerTest {
     void mockLogin() {
         User user = new User();
         user.setUsername("kienboec");
-        user.setId(44L); //L --> Long
+        user.setId(7L); //L --> Long variable
         MemorySession.put("kienboec-mtcgToken", user);
+    }
+
+    void mockLogin2() {
+        User user = new User();
+        user.setUsername("altenhof");
+        user.setId(8L); //L --> Long
+        MemorySession.put("altenhof-mtcgToken", user);
     }
 
     @Test
@@ -74,7 +81,7 @@ public class TradeControllerTest {
     }
 
     @Test
-    void testTryToTrade() throws Exception{
+    void testTryToTrade() {   //Not allowed to trade with yourself!
         //mock login
         mockLogin();
 
@@ -82,18 +89,10 @@ public class TradeControllerTest {
 
         Request request = new Request();
         request.setMethod("POST");
-        request.setPath("/tradings");
-
+        request.setPath("/tradings/6cd85277-4590-49d4-b0cf-ba0a921faad0");
         request.setToken("kienboec-mtcgToken");
-        Trade trade = new Trade();
-        trade.setId("6cd85277-4590-49d4-b0cf-ba0a921faad0");
-        trade.setCardToTrade("1cb6ab86-bdb2-47e5-b6e4-68c5ab389334");
-        trade.setType("monster");
-        trade.setMinimumDamage(15);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String content = objectMapper.writeValueAsString(trade);
-        request.setContent(content);
+        request.setContent("4ec8b269-0dfa-4f97-809a-2c63fe2a0025");
 
 
         // Act
@@ -104,5 +103,27 @@ public class TradeControllerTest {
         System.out.println(response.getContent());
     }
 
+    @Test
+    void testTryToTrade2() throws Exception{   //should trade successfully
+        //mock login
+        mockLogin2();
+
+        tradeApp = new TradeApp();
+
+        Request request = new Request();
+        request.setMethod("POST");
+        request.setPath("/tradings/6cd85277-4590-49d4-b0cf-ba0a921faad0");
+        request.setToken("altenhof-mtcgToken");
+
+        request.setContent("951e886a-0fbf-425d-8df5-af2ee4830d85");
+
+
+        // Act
+        Response response = tradeApp.handle(request);
+
+        //Print test output
+        System.out.println(response.getStatus());
+        System.out.println(response.getContent());
+    }
 
 }
