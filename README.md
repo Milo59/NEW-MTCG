@@ -172,7 +172,7 @@ private Response find(Request request) {
 
 
 
->update methode fulfiled the requirements when need to edite the user profile.
+>update methode fulfilled the requirements when need to edite the user profile.
 
 `UserRepository:`
 
@@ -203,7 +203,7 @@ public void update(User user) throws Exception { //edit user profile
 
 
 
->The last but not the least, the User class is pre-defined in the model folder. 
+>The last but not the least, the objects to be transferred is pre-defined in the model folder. 
 
 +++
 
