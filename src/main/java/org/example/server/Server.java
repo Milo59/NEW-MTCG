@@ -35,7 +35,7 @@ public class Server {
      */
     private void run() {
         ExecutorService executorService = Executors.newFixedThreadPool(5);
-        //这里用到了线程池，可以了解一下。线程池里的线程会去执行
+        //这里用到了线程池
         //RequestHandler
         //这个类的run方法。
         while (true) {

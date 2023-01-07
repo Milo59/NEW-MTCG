@@ -43,7 +43,7 @@ public class UserDbRepository implements UserRepository {
 
     @Override
     public User findByUsername(String username) throws Exception {
-        // findByUsername example
+
         Connection connection = DatabaseUtil.getConnection();
         String userFindByUsernameSql = "SELECT * FROM USERS WHERE USERNAME = ?";
         User user = null;

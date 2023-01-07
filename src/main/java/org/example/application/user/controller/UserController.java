@@ -39,8 +39,6 @@ public class UserController {
             return update(request);
         }
 
-        // To do...get method
-
         Response response = new Response();
         response.setStatusCode(StatusCode.METHODE_NOT_ALLOWED);
         response.setContentType(ContentType.TEXT_PLAIN);

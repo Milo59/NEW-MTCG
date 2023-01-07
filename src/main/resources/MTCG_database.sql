@@ -11,7 +11,7 @@ create table users
     scored   integer default 100 not null
 );
 
-comment on table users is '用户表';
+comment on table users is 'user table';
 
 comment on column users.id is 'id';
 

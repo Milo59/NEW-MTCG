@@ -42,12 +42,12 @@ public class RequestHandler implements Runnable {
             Request request = getRequest();
             Response response = null;
             String path = request.getPath();
-            //判断路径
+            //Determine the path
             if(path.equals("/")){
                 // default Handler
                 response = new GameApp().indexHandle(request);
             }else if (path.startsWith("/users")) {
-                //Handler 检测到users路径 调用UserApp类的handle方法处理
+                //eg. Handler 检测到users路径 调用UserApp类的handle方法处理
                 UserApp userApp = new UserApp();
                 response = userApp.handle(request);
             }else if(path.equals("/sessions")){
@@ -58,7 +58,7 @@ public class RequestHandler implements Runnable {
                 response = new TransactionsApp().handle(request);
             }else if(path.startsWith("/deck")){
                 response = new DeckApp().handle(request);
-            } else if(path.equals("/cards")){ //查询用户的卡 show all acquired cards of users
+            } else if(path.equals("/cards")){
                     response = new CardApp().handle(request);
             }else if(path.equals("/stats")){
                 response = new StatsApp().handle(request);
