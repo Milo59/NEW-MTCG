@@ -72,6 +72,8 @@ create table trades
     status        integer default 0
 );
 
+comment on column trades.status is 'default 0 means have not been traded yet';
+
 alter table trades
     owner to swe1user;
 
