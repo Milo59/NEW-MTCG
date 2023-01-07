@@ -47,7 +47,7 @@ public class RequestHandler implements Runnable {
                 // default Handler
                 response = new GameApp().indexHandle(request);
             }else if (path.startsWith("/users")) {
-                //eg. Handler 检测到users路径 调用UserApp类的handle方法处理
+                //eg. Handler detects users path, call userApp.handle()
                 UserApp userApp = new UserApp();
                 response = userApp.handle(request);
             }else if(path.equals("/sessions")){
