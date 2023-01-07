@@ -113,9 +113,12 @@ public class TradeControllerTest {
         Request request = new Request();
         request.setMethod("POST");
         request.setPath("/tradings/6cd85277-4590-49d4-b0cf-ba0a921faad0");
+        //request.setPath("/tradings/123"); //b017ee50-1c14-44e2-bfd6-2c0c5653a37c 10
+        //request.setToken("kienboec-mtcgToken");
         request.setToken("altenhof-mtcgToken");
 
         request.setContent("951e886a-0fbf-425d-8df5-af2ee4830d85");
+        //request.setContent("dcd93250-25a7-4dca-85da-cad2789f7198"); // 11
 
 
         // Act

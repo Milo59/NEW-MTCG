@@ -43,7 +43,7 @@ public class TradeController {
             return deleteTrade(request);
         }
 
-        if (method.equals(Method.POST.method ) && path.equals("/tradings/6cd85277-4590-49d4-b0cf-ba0a921faad0")){
+        if (method.equals(Method.POST.method ) && path.startsWith("/tradings/")){//equals("/tradings/6cd85277-4590-49d4-b0cf-ba0a921faad0")){
             return tryToTrade(request);
         }
 
@@ -120,14 +120,28 @@ public class TradeController {
                //if same --> not allowed to trade with the same person
                response.setContent("Not allowed to trade with yourself!");
            } else { //else --not the same --> can trade
-               tradeRepository.updateUserIdByCardId(card2Uid, card1.getId());
-               tradeRepository.updateUserIdByCardId(card1Uid, card2Id);
+               //判断要拿进来交易的卡 -d card2  满不满足request
+               String type; //card2
+               Trade trade1 = tradeRepository.searchTradeById(tradeId); // trade1 to get the card type
+               if(card2.getName().toLowerCase().contains("spell")){
+                   type = "spell";
+               } else{
+                   type = "monster";
+               }
 
-               tradeRepository.updateTradeStatus(tradeId);
+               if( type.equals(trade1.getType())  && card2.getDamage() >= trade1.getMinimumDamage()) {
 
-               response.setContentType(ContentType.APPLICATION_JSON);
-               response.setContent("trade successfully!");
+                   tradeRepository.updateUserIdByCardId(card2Uid, card1.getId());
+                   tradeRepository.updateUserIdByCardId(card1Uid, card2Id);
 
+                   tradeRepository.updateTradeStatus(tradeId);
+
+                   response.setContentType(ContentType.APPLICATION_JSON);
+                   response.setContent("trade successfully!");
+               } else {
+                   response.setContentType(ContentType.APPLICATION_JSON);
+                   response.setContent("condition not fulfilled!");
+               }
            }
        } catch (Exception e) {
            e.printStackTrace();
