@@ -153,7 +153,7 @@ public class TradeDbRepository implements TradeRepository{
 
 
     @Override
-    public boolean save(Trade trade) throws Exception {  //保存交易信息  传trade参数
+    public boolean save(Trade trade) throws Exception {  //save trade information
         Connection connection = DatabaseUtil.getConnection();
        // PreparedStatement ps = null;
 

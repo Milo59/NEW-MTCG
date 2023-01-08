@@ -43,6 +43,7 @@ public class PackageController {
         return response;
     }
 
+    //buy package
     private Response acquirePackages(Request request) {
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -72,7 +73,7 @@ public class PackageController {
 
     }
 
-    //buy P
+    //create Package
     private Response create(Request request) {
         ObjectMapper objectMapper = new ObjectMapper();
         String json = request.getContent();

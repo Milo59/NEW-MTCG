@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SessionController {
-    private final SessionRepository sessionRepository;// final 一旦你将引用声明作final，你将不能改变这个引用了
+    private final SessionRepository sessionRepository;// final--> won't be able to change anymore
     private final UserRepository userRepository;
 
     public SessionController(SessionRepository sessionRepository, UserRepository userRepository) {

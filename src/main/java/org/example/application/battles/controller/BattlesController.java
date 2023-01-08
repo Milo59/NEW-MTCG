@@ -76,10 +76,10 @@ public class BattlesController {
                     Card card = round(card1, card2);
                     round++;
                     if (card==null){
-                        //回合平局
+                        //回合平局 brew
                         continue;
                     }else{
-                        //记录回合日志TODO
+                        //battle log
                         Log log = new Log();
                         log.setUser1(user1.getUsername());
                         log.setUser2(user2.getUsername());
@@ -87,15 +87,15 @@ public class BattlesController {
                         log.setUser1CardDamage(card1.getDamage());
                         log.setUser2CardName(card2.getName());
                         log.setUser2CardDamage(card2.getDamage());
-                        //修改用户分数
+                        //Modify the user score
                         if(deckCard1.contains(card)){
-                            //user1本回合获胜
+                            //User1 wins this round
                             log.setWinner(user1.getUsername());
                             userRepository.addScore(user1.getId());
                             userRepository.reduceScore(user2.getId());
                             deckCard2.remove(card2);
                         }else{
-                            //user2本回合获胜
+                            //User2 wins the round
                             log.setWinner(user2.getUsername());
                             userRepository.addScore(user2.getId());
                             userRepository.reduceScore(user1.getId());
@@ -117,7 +117,7 @@ public class BattlesController {
     //round
     private Card round(Card card1,Card card2){
         if (card1.getName().contains("Spell") && card2.getName().contains("Spell")){
-            //法术战斗
+            //Spell battle
             if (card1.getName().contains("Fire")){
                 if (card2.getName().contains("Fire")){
 
@@ -125,7 +125,7 @@ public class BattlesController {
                     card1.setDamage(card1.getDamage()/2);
                     card2.setDamage(card2.getDamage()*2);
                 }else{
-                    //正常
+                    //normal
                     card1.setDamage(card1.getDamage()*2);
                     card2.setDamage(card2.getDamage()/2);
                 }
@@ -151,7 +151,7 @@ public class BattlesController {
                 }
             }
         }else if(card1.getName().contains("Spell") || card2.getName().contains("Spell")){
-            //混合战斗
+            //Mix battle
             if (card1.getName().equals("Knight") && card2.getName().equals("WaterSpell")){
                 return card2;
             }
@@ -176,7 +176,7 @@ public class BattlesController {
                         card1.setDamage(card1.getDamage()/2);
                         card2.setDamage(card2.getDamage()*2);
                     }else{
-                        //正常
+                        //normal
                         card1.setDamage(card1.getDamage()*2);
                         card2.setDamage(card2.getDamage()/2);
                     }

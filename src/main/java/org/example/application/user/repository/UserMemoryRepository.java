@@ -20,7 +20,7 @@ public class UserMemoryRepository implements UserRepository{
 
     @Override
     public User findByUsername(String username) throws Exception {
-       // this.users.size();//查看长度
+       // this.users.size();//check length
         for (User user: this.users) {
             if (user.getUsername().equals(username)) {
                 return user;

@@ -47,9 +47,9 @@ public class CardController {
         try {
 
             //4.5
-            User user = MemorySession.get(request.getToken());//user变量 获取用户信息
+            User user = MemorySession.get(request.getToken());//The user variable gets the user information
 
-            cardList = cardRepository.findCardByUserId(user.getId());//
+            cardList = cardRepository.findCardByUserId(user.getId());
             String content = "";
 
             content = objectMapper.writeValueAsString(cardList);

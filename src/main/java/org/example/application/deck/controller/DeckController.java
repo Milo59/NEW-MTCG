@@ -48,8 +48,8 @@ public class DeckController {
         try {
             String token = request.getToken();
             User user = MemorySession.get(token);
-            if(request.getPath().endsWith("?format=plain")){ //判断路径
-                objectMapper.enable(SerializationFeature.INDENT_OUTPUT); //格式化输出
+            if(request.getPath().endsWith("?format=plain")){ //determine the path
+                objectMapper.enable(SerializationFeature.INDENT_OUTPUT); //格式化输出 format the output
             }
             List<Card> cardList = deckRepository.findDeckCard(user);
             String content = "";
@@ -86,7 +86,7 @@ public class DeckController {
                 return response;
             }
 
-            if(cardList.size()!=4){  //未被配置时
+            if(cardList.size()!=4){  //When not configured
                 String content = "";
                 Map map = new HashMap();
                 map.put("msg","Failed to configure. The number of cards is not equal to 4");

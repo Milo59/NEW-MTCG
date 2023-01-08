@@ -103,7 +103,7 @@ public class UserController {
     }
 
 
-    private Response create(Request request) { //request getContent获取检测脚本的参数 封装到user对象里
+    private Response create(Request request) { //request getContent gets the parameters of the instrumentation script and encapsulates them in the user object
         ObjectMapper objectMapper = new ObjectMapper();
 
         String json = request.getContent();
@@ -119,14 +119,14 @@ public class UserController {
 
         Response response = new Response();
         try {
-            if (userRepository.save(user)){ //根据传的参数调用方法 往下走 如果返回值为TRUE
+            if (userRepository.save(user)){ //return true
                 response.setStatusCode(StatusCode.CREATED);
                 response.setContentType(ContentType.APPLICATION_JSON);
                 String content = "";
                 Map map = new HashMap();
                 map.put("msg","created successfully");
                 map.put("user",user);
-                user.setPassword(user.getHashPassword()); //密码 加密
+                user.setPassword(user.getHashPassword()); //password hash
                 content = objectMapper.writeValueAsString(map);
                 response.setContent(content);
             }else{ //FALSE

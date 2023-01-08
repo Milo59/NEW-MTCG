@@ -11,12 +11,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * UserDbRepository class
- *
- * @author Xinlan Zhang
- * @date 2022/12/13
- */
 public class UserDbRepository implements UserRepository {
 
     @Override
@@ -72,7 +66,7 @@ public class UserDbRepository implements UserRepository {
         Connection connection = DatabaseUtil.getConnection(); //get db conn
 
         //verify whether the user already exists
-        String userFindByUsernameSql = "SELECT COUNT(USERNAME) NUMBER FROM USERS WHERE USERNAME = ?";//SELECT COUNT 统计条数（行）
+        String userFindByUsernameSql = "SELECT COUNT(USERNAME) NUMBER FROM USERS WHERE USERNAME = ?";//SELECT COUNT column
         try (PreparedStatement ps = connection.prepareStatement(userFindByUsernameSql)) {
             ps.setString(1, user.getUsername()); //根据传入的数据 设置参数 传到 ？（70）
             try (ResultSet rs = ps.executeQuery()) {
@@ -84,7 +78,7 @@ public class UserDbRepository implements UserRepository {
         } catch (Exception e) {
             throw e;
         }
-        String insertUserSql = "INSERT INTO USERS(USERNAME, PASSWORD,MONEY) VALUES(?, ?, ?)"; //创建user
+        String insertUserSql = "INSERT INTO USERS(USERNAME, PASSWORD,MONEY) VALUES(?, ?, ?)"; //insert user
         try (PreparedStatement ps = connection.prepareStatement(insertUserSql)) {
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getHashPassword());
@@ -94,7 +88,7 @@ public class UserDbRepository implements UserRepository {
             throw e;
         }
 
-        return true; //创建成功
+        return true;
     }
 
     @Override
