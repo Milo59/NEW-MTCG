@@ -75,7 +75,7 @@ public class SessionController {
                 content = objectMapper.writeValueAsString(map);
                 response.setContent(content);
             } else {  //
-                System.out.println(user.getUsername() + " login failed,username or password error");
+                System.out.println(user.getUsername() + " login failed, username or password error");
                 response.setContent("username or password error");
             }
         } catch (Exception e) {

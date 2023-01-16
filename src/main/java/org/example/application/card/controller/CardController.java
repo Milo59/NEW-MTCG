@@ -46,8 +46,7 @@ public class CardController {
         response.setContentType(ContentType.APPLICATION_JSON);
         try {
 
-            //4.5
-            User user = MemorySession.get(request.getToken());//The user variable gets the user information
+            User user = MemorySession.get(request.getToken());// return a User object with all info
 
             cardList = cardRepository.findCardByUserId(user.getId());
             String content = "";

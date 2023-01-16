@@ -11,7 +11,7 @@ import org.example.server.http.ContentType;
 import org.example.server.http.StatusCode;
 
 public class CardApp implements Application {
-    private CardController cardController;
+    private final CardController cardController;
 
     public CardApp() {
        CardRepository cardRepository = new CardDBRepository();
@@ -26,7 +26,7 @@ public class CardApp implements Application {
             Response response = new Response();
             response.setStatusCode(StatusCode.OK);
             response.setContentType(ContentType.TEXT_PLAIN);
-            response.setContent("authentication failed");
+            response.setContent("authentication failed"); //should fail
             return response;
         }else{
             return this.cardController.handle(request);

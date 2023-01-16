@@ -20,7 +20,7 @@ public class SessionMemoryRepository implements SessionRepository{
             ps.setString(2, user.getHashPassword());
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
-                if (rs.getInt("number") >= 1) { //already exist--can login
+                if (rs.getInt("number") >= 1) { //already exist--can login  getInt（）方法：检索当前行中指定列的值；若该列的int值为null，则返回0；
                     return true;
                 }
             }

@@ -31,11 +31,11 @@ public class UserController {
             return create(request);
         }
 
-        if (path.startsWith("/users/") && request.getMethod().equals(Method.GET.method)) { // Get method go this way
+        if (path.startsWith("/users/") && request.getMethod().equals(Method.GET.method)) { // 14 Get method go this way
             return find(request);
         }
 
-        if (path.startsWith("/users/") && request.getMethod().equals(Method.PUT.method)) { // Post Method come here
+        if (path.startsWith("/users/") && request.getMethod().equals(Method.PUT.method)) { // 14 Post Method come here
             return update(request);
         }
 
@@ -49,14 +49,14 @@ public class UserController {
 
     //edit user data
     private Response update(Request request) {
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper();//实例化objectMapper对象 Instantiate the objectMapper object
 
         String username = request.getPath().replaceAll("/users/","");
 
         String json = request.getContent();
         User user;
         try {
-            user = objectMapper.readValue(json, User.class);
+            user = objectMapper.readValue(json, User.class);//将json转为对象 Turn JSON into objects
             user.setUsername(username);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -74,7 +74,7 @@ public class UserController {
             Map map = new HashMap();
             map.put("msg","editing user data succeeded");
             map.put("user",userRepository.findByUsername(username));
-            content = objectMapper.writeValueAsString(map);
+            content = objectMapper.writeValueAsString(map);//将map转为json
             response.setContent(content);
         } catch (Exception e) {
             e.printStackTrace();

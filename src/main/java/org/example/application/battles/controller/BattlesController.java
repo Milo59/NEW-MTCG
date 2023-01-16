@@ -55,7 +55,7 @@ public class BattlesController {
         try {
             User user = MemorySession.get(request.getToken());
             deckUser.add(user);
-            if (deckUser.size()>=2){
+            if (deckUser.size() == 2){
                 //start battle
 
                 User user1 = deckUser.get(0);
@@ -65,6 +65,7 @@ public class BattlesController {
                 List<Card> deckCard2 = deckRepository.findDeckCard(user2);
                 if (deckCard1.size()!=4 || deckCard2.size()!=4){
                     response.setContent("Not in conformity with battle");
+                    return response;
                 }
 
                 //Round start
@@ -88,7 +89,7 @@ public class BattlesController {
                         log.setUser2CardName(card2.getName());
                         log.setUser2CardDamage(card2.getDamage());
                         //Modify the user score
-                        if(deckCard1.contains(card)){
+                        if(deckCard1.contains(card)){ //if contains the card--> win
                             //User1 wins this round
                             log.setWinner(user1.getUsername());
                             userRepository.addScore(user1.getId());
@@ -262,10 +263,11 @@ public class BattlesController {
             }
         }
 
+        //last step: compare damage
         if (card1.getDamage()>card2.getDamage()){
             return card1;
         }else if(card1.getDamage()==card2.getDamage()){
-            return null;
+            return null; //brew
         }else {
             return card2;
         }

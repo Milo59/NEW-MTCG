@@ -21,7 +21,7 @@ public class PackageDbRepository implements PackageRepository {
         PreparedStatement ps = null;
         try {
             connection = DatabaseUtil.getConnection();
-            connection.setAutoCommit(false);
+            connection.setAutoCommit(false);//disabling the Autocommit. will allow to group multiple subsequent Statements under the same transaction
             //String packageId = (i++) + "";
             String packageId = UUID.randomUUID().toString(); // UUID --> unique id
             String insertPackageSql = "INSERT INTO PACKAGES(ID,NAME) VALUES(?,?)";
@@ -39,14 +39,16 @@ public class PackageDbRepository implements PackageRepository {
                 ps.setFloat(4, card.getDamage());
                 ps.execute();
             }
-            connection.commit();
+            connection.commit();//mandatory to execute to persist changes into database
         } catch (Exception e) {
-            connection.rollback();
+            assert connection != null;
+            connection.rollback(); //If close a connection without committing then it will transaction will be rolled back.
             throw e;
         } finally {
+            assert connection != null;
             connection.setAutoCommit(true);
             if (null != ps) {
-                ps.close();
+                ps.close();//close db conn
             }
         }
 
@@ -64,11 +66,11 @@ public class PackageDbRepository implements PackageRepository {
             connection.setAutoCommit(false);
 
             String pid = "";
-            String sql = "select * from packages where state = 1 limit 1";
+            String sql = "select * from packages where state = 1 limit 1";//limit 1-> only one record is returned
             ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                pid = rs.getString("id");
+                pid = rs.getString("id");//获取结果集当前行的 id 列数据
             }
 
             sql = "update packages set state = 0 where id = ?";
@@ -101,9 +103,11 @@ public class PackageDbRepository implements PackageRepository {
             }
             connection.commit();
         } catch (Exception e) {
-            connection.rollback();
+            assert connection != null;
+            connection.rollback();//if one of them failed, the steps above will rollback->no record update
             throw e;
         } finally {
+            assert connection != null;
             connection.setAutoCommit(true);
             if (null != ps) {
                 ps.close();

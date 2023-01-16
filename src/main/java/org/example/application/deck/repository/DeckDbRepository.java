@@ -14,7 +14,7 @@ public class DeckDbRepository implements DeckRepository {
     @Override
     public List<Card> findDeckCard(User user) throws Exception {
         Connection connection = DatabaseUtil.getConnection();
-        String findUserDeckCardSql = "SELECT * FROM CARD where U_ID = ? AND DECK = 1";
+        String findUserDeckCardSql = "SELECT * FROM CARD where U_ID = ? AND DECK = 1";//1--> card on deck
         List<Card> cards = new ArrayList<>();
         try (PreparedStatement ps = connection.prepareStatement(findUserDeckCardSql)) {
             ps.setLong(1, user.getId());
@@ -39,7 +39,7 @@ public class DeckDbRepository implements DeckRepository {
         String findUserDeckCardSql = "UPDATE CARD SET DECK = 1 where U_ID = ? AND ID IN (?,?,?,?)";
         try (PreparedStatement ps = connection.prepareStatement(findUserDeckCardSql)) {
             ps.setLong(1, user.getId());
-            ps.setString(2, cardList.get(0));
+            ps.setString(2, cardList.get(0));//0 --> subscript. indicating take the n-th value in the set
             ps.setString(3, cardList.get(1));
             ps.setString(4, cardList.get(2));
             ps.setString(5, cardList.get(3));

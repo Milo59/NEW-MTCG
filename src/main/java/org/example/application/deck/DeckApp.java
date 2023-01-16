@@ -12,7 +12,7 @@ import org.example.server.http.StatusCode;
 
 public class DeckApp implements Application {
 
-    private DeckController deckController;
+    private final DeckController deckController;
 
     public DeckApp() {
         DeckRepository deckRepository = new DeckDbRepository();

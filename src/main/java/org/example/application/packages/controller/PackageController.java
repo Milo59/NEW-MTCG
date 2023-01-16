@@ -86,7 +86,7 @@ public class PackageController {
             packageList = objectMapper.readValue(json, new TypeReference<List<Card>>() {});
 
             //4.5
-            MemorySession.get(request.getToken());
+            //MemorySession.get(request.getToken());
 
 
             if (packageRepository.save(packageList)){
