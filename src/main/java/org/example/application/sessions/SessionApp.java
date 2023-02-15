@@ -10,7 +10,7 @@ import org.example.server.dto.Request;
 import org.example.server.dto.Response;
 //User Login
 public class SessionApp implements Application {
-    private SessionController sessionController;
+    private final SessionController sessionController;
 
     public SessionApp() {
         SessionRepository sessionRepository = new SessionMemoryRepository();

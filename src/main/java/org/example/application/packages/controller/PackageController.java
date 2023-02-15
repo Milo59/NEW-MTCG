@@ -53,7 +53,7 @@ public class PackageController {
 
         try {
             User memUser = MemorySession.get(request.getToken());
-            User user = userRepository.findByUsername(memUser.getUsername());
+            User user = userRepository.findByUsername(memUser.getUsername());//memUser and user 基本上是一样的，但是用user来getMoney来查数据库里的钱，memUser查出来的是没有更新的，但不如getId就可以用memUser查
             if (user.getMoney()>=5){
                 if (packageRepository.checkPackage()){
                     List<Card> cards = packageRepository.acquirePackages(user.getId());
