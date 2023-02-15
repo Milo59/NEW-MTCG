@@ -46,22 +46,18 @@ public class UserControllerTest {
     }
 
     @Test
-    void testEditUsers() throws Exception {
-        mockLogin();
+    void testCreateUsersFail() throws Exception {
         userApp = new UserApp();
 
         Request request = new Request();
-        request.setMethod("PUT");
-        request.setPath("/users/kienboec");
+        request.setMethod("POST");
+        request.setPath("/users");
 
-        request.setToken("kienboec-mtcgToken");
-        User user = new User();
-        user.setName("Kienboek");
-        user.setBio("me playing...");
-        user.setImage(":-)");
-
+        Map<String,String> map = new HashMap<>();
+        map.put("Username","kienboec");
+        map.put("Password","daniel");
         ObjectMapper objectMapper = new ObjectMapper();
-        String content = objectMapper.writeValueAsString(user);
+        String content = objectMapper.writeValueAsString(map);
         request.setContent(content);
 
         // Act
@@ -71,4 +67,67 @@ public class UserControllerTest {
         System.out.println(response.getStatus());
         System.out.println(response.getContent());
     }
+
+    @Test
+    void testEditUsers() throws Exception {
+        mockLogin();
+        userApp = new UserApp();
+
+        Request request = new Request();
+        request.setMethod("PUT");
+        request.setPath("/users/kienboec");
+
+        request.setToken("kienboec-mtcgToken");
+        Map map = new HashMap<String, String>();
+        map.put("name","Kienboek");
+        map.put("bio","me playing...");
+        map.put("image",":-)");
+        //User user = new User();
+       // user.setName("Kienboek");
+       // user.setBio("me playing...");
+       // user.setImage(":-)");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String content = objectMapper.writeValueAsString(map);
+        request.setContent(content);
+
+        // Act
+        Response response = userApp.handle(request);
+
+        //Print test output
+        System.out.println(response.getStatus());
+        System.out.println(response.getContent());
+    }
+
+    @Test
+    void testEditUsersFail() throws Exception {
+        mockLogin();
+        userApp = new UserApp();
+
+        Request request = new Request();
+        request.setMethod("PUT");
+        request.setPath("/users/kienboec");
+
+        request.setToken("altenhof-mtcgToken");
+        Map map = new HashMap<String, String>();
+        map.put("name","Kienboek");
+        map.put("bio","me playing...");
+        map.put("image",":-)");
+        //User user = new User();
+        // user.setName("Kienboek");
+        // user.setBio("me playing...");
+        // user.setImage(":-)");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String content = objectMapper.writeValueAsString(map);
+        request.setContent(content);
+
+        // Act
+        Response response = userApp.handle(request);
+
+        //Print test output
+        System.out.println(response.getStatus());
+        System.out.println(response.getContent());
+    }
+
 }

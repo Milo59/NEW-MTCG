@@ -35,4 +35,23 @@ public class CardControllerTest {
         System.out.println(response.getStatus());
         System.out.println(response.getContent());
     }
+
+    @Test
+    void testGetUserCardFail() throws Exception {
+        //mock login
+        mockLogin();
+        cardApp = new CardApp();
+
+        Request request = new Request();
+        request.setMethod("GET");
+        request.setPath("/cards");
+        //request.setToken("kienboec-mtcgToken");
+
+        // Act
+        Response response = cardApp.handle(request);
+
+        //Print test output
+        System.out.println(response.getStatus());
+        System.out.println(response.getContent());
+    }
 }

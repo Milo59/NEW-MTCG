@@ -95,6 +95,8 @@ public class BattlesController {
                             userRepository.addScore(user1.getId());
                             userRepository.reduceScore(user2.getId());
                             deckCard2.remove(card2);
+                            card2.setuId(user1.getId());//take over
+
                         }else{
                             //User2 wins the round
                             log.setWinner(user2.getUsername());

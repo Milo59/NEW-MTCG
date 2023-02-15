@@ -78,4 +78,26 @@ public class DeckControllerTest {
         System.out.println(response.getStatus());
         System.out.println(response.getContent());
     }
+
+    @Test
+    void testConfigureDeckFail() throws Exception { //only 3 cards set
+        mockLogin();
+        deckApp = new DeckApp();
+
+        Request request = new Request();
+        request.setMethod("PUT");
+        request.setPath("/deck");
+        request.setToken("kienboec-mtcgToken");
+
+        List<String> cards = Arrays.asList("845f0dc7-37d0-426e-994e-43fc3ac83c08", "99f8f8dc-e25e-4a95-aa2c-782823f36e2a", "e85e3976-7c86-4d06-9a80-641c2019a79f");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String content = objectMapper.writeValueAsString(cards);
+        request.setContent(content);
+        // Act
+        Response response = deckApp.handle(request);
+
+        //Print test output
+        System.out.println(response.getStatus());
+        System.out.println(response.getContent());
+    }
 }

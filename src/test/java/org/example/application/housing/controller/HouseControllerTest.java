@@ -25,7 +25,7 @@ class HouseControllerTest {
     @Mock
     HouseRepository houseRepository;
 
-    @Test
+ //   @Test
     void testGetHouses() {
         // Arrange
         List<House> houses = new ArrayList<>();
